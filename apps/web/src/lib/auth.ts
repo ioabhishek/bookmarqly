@@ -48,19 +48,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         })
         const username = generateFromEmail(token?.email, 3)
 
-        cookies().set("authjs.access-token", accessToken)
+        // cookies().set("authjs.access-token", accessToken)
         session.user.id = token.sub
         session.user.accessToken = accessToken
 
-        await db.user.update({
+        const dbUser = await db.user.findUnique({
           where: {
             id: token?.sub,
           },
-          data: {
-            accessToken,
-            username,
-          },
         })
+
+        if (!dbUser?.username) {
+          await db.user.update({
+            where: {
+              id: token?.sub,
+            },
+            data: {
+              username,
+            },
+          })
+        }
       }
       return session
     },

@@ -6,7 +6,7 @@ type Params = {
   username: string
 }
 
-export async function GET(request: Request, context: { params: Params }) {
+export async function GET(req: Request, context: { params: Params }) {
   const username = context.params.username
 
   const session = await auth()
