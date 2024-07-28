@@ -1,0 +1,54 @@
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
+import {
+  getCurrentUser,
+  getMyBookmarks,
+  getMyCollections,
+  getSingleCollection,
+  getUser,
+  register,
+} from "./api"
+
+export function useCurrentUser(data: any) {
+  return useQuery({
+    queryKey: ["currentUser"],
+    queryFn: () => getCurrentUser(data),
+    placeholderData: keepPreviousData,
+  })
+}
+
+export function useRegister(data: any) {
+  return useQuery({
+    queryKey: ["userRegister"],
+    queryFn: () => register(data),
+    // placeholderData: keepPreviousData,
+  })
+}
+
+export function useUser(data: any) {
+  return useQuery({
+    queryKey: ["getUser"],
+    queryFn: () => getUser(data),
+    retry: false,
+  })
+}
+
+export function useMyCollection() {
+  return useQuery({
+    queryKey: ["myCollection"],
+    queryFn: () => getMyCollections(),
+  })
+}
+
+export function useMyBookmarks() {
+  return useQuery({
+    queryKey: ["myBookmarks"],
+    queryFn: () => getMyBookmarks(),
+  })
+}
+
+export function useSingleCollection(collectionId: any) {
+  return useQuery({
+    queryKey: ["singleCollection"],
+    queryFn: () => getSingleCollection(collectionId),
+  })
+}
