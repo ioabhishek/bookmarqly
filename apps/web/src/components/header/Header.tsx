@@ -41,12 +41,16 @@ const Header: FC<HeaderProps> = ({}) => {
           </Link>
         </nav>
 
-        <Button
-          onClick={() => signOut()}
-          className="flex items-center gap-2 ml-auto text-sm font-medium">
-          Sign out
-          <ArrowUpRight className="w-4 h-4" />
-        </Button>
+        <div className="ml-auto"></div>
+
+        {session && (
+          <Button
+            onClick={() => signOut()}
+            className="flex items-center gap-2 text-sm font-medium">
+            Sign out
+            <ArrowUpRight className="w-4 h-4" />
+          </Button>
+        )}
 
         <Link
           href="/login"

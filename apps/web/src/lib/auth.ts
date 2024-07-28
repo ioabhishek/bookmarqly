@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { JWTPayload, SignJWT, importJWK } from "jose"
 import { db } from "./db"
 import { cookies } from "next/headers"
+import { generateFromEmail, generateUsername } from "unique-username-generator"
 
 export interface session extends Session {
   user: {
@@ -45,6 +46,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: token?.email,
           image: token?.picture,
         })
+        const username = generateFromEmail(token?.email, 3)
+
         cookies().set("authjs.access-token", accessToken)
         session.user.id = token.sub
         session.user.accessToken = accessToken
@@ -55,6 +58,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
           data: {
             accessToken,
+            username,
           },
         })
       }
