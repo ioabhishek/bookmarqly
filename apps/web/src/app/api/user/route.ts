@@ -7,20 +7,12 @@ export async function GET() {
   const users = await db.user.findMany()
 
   if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        data: users,
-      },
-      { status: 401 }
-    )
+    return NextResponse.json({ success: false }, { status: 401 })
   }
 
-  return NextResponse.json(
-    {
-      success: true,
-      data: users,
-    },
-    { status: 200 }
-  )
+  return NextResponse.json({ success: true, session: session }, { status: 200 })
 }
+
+// export async function POST(req) {
+
+// }
