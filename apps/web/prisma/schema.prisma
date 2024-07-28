@@ -1,22 +1,25 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String    @unique
+  email         String       @unique
+  username      String?      @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  collection    Collection[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  bookmark      Bookmark[]
 }
 
 model Account {
@@ -56,4 +59,33 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+}
+
+model Collection {
+  id          String     @id @default(cuid())
+  title       String
+  description String
+  thumbnail   String?
+  isPublic    Boolean
+  user        User       @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  bookmark    Bookmark[]
+}
+
+model Bookmark {
+  id            String     @id @default(cuid())
+  title         String?
+  url           String
+  note          String?
+  ogImage       String?
+  ogTitle       String?
+  ogDescription String?
+  collection    Collection @relation(fields: [collectionId], references: [id])
+  collectionId  String
+  user          User       @relation(fields: [userId], references: [id])
+  userId        String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
