@@ -1,10 +1,10 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { db } from "./db"
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import client from "./mongodb"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(db),
+  adapter: MongoDBAdapter(client),
   providers: [Google],
   debug: true,
 })
