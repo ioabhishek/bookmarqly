@@ -6,7 +6,7 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import { Command as CommandPrimitive } from "cmdk"
 
 import { cn } from "@repo/ui/lib/utils"
-import { Dialog, DialogContent } from "/src/shadcn/dialog"
+import { Dialog, DialogContent } from "./dialog"
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,

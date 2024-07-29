@@ -24,13 +24,13 @@ const Footer: FC<FooterProps> = ({}) => {
           Made with ❤️ in India
         </span>
         <div className=" flex items-center gap-6 my-4">
-          <Moon
-            className=" w-5 h-5 cursor-pointer"
-            onClick={() => setTheme("dark")}
-          />
           <Sun
             className=" w-5 h-5 cursor-pointer"
             onClick={() => setTheme("light")}
+          />
+          <Moon
+            className=" w-5 h-5 cursor-pointer"
+            onClick={() => setTheme("dark")}
           />
         </div>
 

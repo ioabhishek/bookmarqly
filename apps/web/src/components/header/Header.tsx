@@ -1,19 +1,16 @@
-"use client"
 import Link from "next/link"
 import { FC } from "react"
 import { ArrowUpRight } from "lucide-react"
 import { Icons } from "../asset/Icons"
-import { Button } from "@repo/ui/components/button"
-import { signOut, useSession } from "next-auth/react"
+import { auth } from "@/lib/auth"
 
 interface HeaderProps {}
 
-const Header: FC<HeaderProps> = ({}) => {
-  const session = useSession()
-  console.log(session?.data?.user)
+const Header: FC<HeaderProps> = async ({}) => {
+  const session = await auth()
 
   return (
-    <header className=" w-full border-b bg-background/80 backdrop-blur-lg sticky top-0 z-50 ">
+    <header className=" w-full border-b bg-background/40 backdrop-blur-lg sticky top-0 z-50 ">
       <div className=" max-w-screen-2xl h-16 flex items-center m-auto md:px-8 px-0 relative">
         <Link href="/" className=" flex items-center gap-4">
           <Icons.logo className="w-6 h-6" />
@@ -43,21 +40,16 @@ const Header: FC<HeaderProps> = ({}) => {
 
         <div className="ml-auto"></div>
 
-        {session && (
-          <Button
-            onClick={() => signOut()}
+        {session?.user ? (
+          <Link href="/dashboard">Dashboard</Link>
+        ) : (
+          <Link
+            href="/login"
             className="flex items-center gap-2 text-sm font-medium">
-            Sign out
+            Sign In
             <ArrowUpRight className="w-4 h-4" />
-          </Button>
+          </Link>
         )}
-
-        <Link
-          href="/login"
-          className="flex items-center gap-2 text-sm font-medium">
-          Sign In
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
       </div>
     </header>
   )

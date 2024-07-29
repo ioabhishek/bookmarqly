@@ -35,9 +35,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   debug: true,
   callbacks: {
-    async redirect({ url, baseUrl }) {
-      return baseUrl
-    },
     async session({ session, token }) {
       if (session?.user && token?.sub) {
         const accessToken = await generateJWT({
@@ -49,8 +46,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const username = generateFromEmail(token?.email, 3)
 
         // cookies().set("authjs.access-token", accessToken)
-        session.user.id = token.sub
-        session.user.accessToken = accessToken
 
         const dbUser = await db.user.findUnique({
           where: {
@@ -68,8 +63,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
           })
         }
+
+        session.user.id = token.sub
+        session.user.username = dbUser?.username
+        session.user.accessToken = accessToken
       }
       return session
+    },
+    async redirect({ url, baseUrl }) {
+      return "/dashboard"
     },
   },
 })

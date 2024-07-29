@@ -1,15 +1,16 @@
 "use client"
-import { buttonVariants } from "@repo/ui/components/button"
+import { FC } from "react"
 import { useUser } from "@/services/queries"
+import { buttonVariants } from "@repo/ui/components/button"
 import Link from "next/link"
-import { useParams } from "next/navigation"
 import UserPage from "@/components/userPage"
 
-const page = () => {
-  const params = useParams()
-  const data = params?.username
+interface UserHomepageProps {
+  session: Object
+}
 
-  const getUserQuery = useUser(data)
+const UserHomepage: FC<UserHomepageProps> = ({ session }) => {
+  const getUserQuery = useUser(session?.user?.username)
   const userDetails = getUserQuery?.data?.data?.data
 
   if (getUserQuery?.isLoading) {
@@ -21,7 +22,7 @@ const page = () => {
   }
 
   return (
-    <>
+    <div>
       {getUserQuery?.data?.data?.data ? (
         <UserPage userDetails={userDetails} />
       ) : (
@@ -53,8 +54,8 @@ const page = () => {
         //   </Link>
         // </div>
       )}
-    </>
+    </div>
   )
 }
 
-export default page
+export default UserHomepage

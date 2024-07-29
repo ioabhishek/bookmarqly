@@ -1,5 +1,6 @@
 import axiosPublic from "@/hooks/useAxios"
 import {
+  COLLECTION,
   COLLECTION_PRIVACY,
   CREATE_BOOKMARK,
   CREATE_COLLECTION,
@@ -52,7 +53,7 @@ export const getMyBookmarks = async () => {
 }
 
 export const createCollection = async (data: any) => {
-  return await axiosPublic.post(`${CREATE_COLLECTION}`, data)
+  return await axiosPublic.post(`${COLLECTION}`, data)
 }
 
 export const updateCollection = async (data: any) => {

@@ -9,10 +9,12 @@ export default function UserLayout({
   return (
     <main>
       <div className="w-full">
-        <Sidebar />
-        <div className="pl-[280px] w-full h-[100vh] ">
-          <AppHeader />
-          <div className="h-full mt-16">{children}</div>
+        <AppHeader />
+        <div className="">
+          <Sidebar />
+          <div className="pl-[280px] w-full h-[calc(100%-64px)] ">
+            {children}
+          </div>
         </div>
       </div>
     </main>

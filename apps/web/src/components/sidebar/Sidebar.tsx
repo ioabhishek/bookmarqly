@@ -36,8 +36,8 @@ const Sidebar: FC<SidebarProps> = ({}) => {
   }, [])
 
   return (
-    <aside className=" min-w-[280px] max-w-[280px] overflow-hidden flex flex-col fixed top-0 left-0  border-r h-full">
-      <div className=" flex justify-between items-center  border-b  min-h-16 px-5 ">
+    <aside className=" min-w-[280px] max-w-[280px] overflow-hidden flex flex-col fixed top-16 left-0 p-5 border-r h-[calc(100%-64px)] overflow-y-auto">
+      {/* <div className=" flex justify-between items-center  border-b  min-h-16 px-5 ">
         <Link href="/" className=" flex items-center gap-3">
           <Icons.logo className="w-5 h-5 " />
           <span className=" text-lg font-semibold">Bookmarqly</span>
@@ -48,28 +48,27 @@ const Sidebar: FC<SidebarProps> = ({}) => {
           {theme === "dark" && <Sun className=" w-4 h-4 md:w-5 md:h-5" />}
           {theme === "light" && <Moon className="w-4 h-4 md:w-5 md:h-5" />}
         </div>
-      </div>
+      </div> */}
 
-      <div className=" flex flex-col p-5  overflow-y-auto h-full">
-        <div className=" flex flex-col gap-3 mb-10">
-          <Link
-            href={`/${username}`}
-            className="flex items-center justify-between text-muted-foreground">
-            <div className=" flex items-center gap-3">
-              <Home className=" w-4 h-4" />
-              <span className=" text-sm">Home</span>
-            </div>
-          </Link>
-          <Link
-            href={`/${username}/bookmarks`}
-            className="flex items-center justify-between text-muted-foreground">
-            <div className=" flex items-center gap-3">
-              <Bookmark className=" w-4 h-4" />
-              <span className=" text-sm">All Bookmarks</span>
-            </div>
-            <span className=" text-xs text-muted-foreground">130</span>
-          </Link>
-          {/* <Link
+      <div className=" flex flex-col gap-3 mb-10">
+        <Link
+          href={`/${username}`}
+          className="flex items-center justify-between text-muted-foreground">
+          <div className=" flex items-center gap-3">
+            <Home className=" w-4 h-4" />
+            <span className=" text-sm">Home</span>
+          </div>
+        </Link>
+        <Link
+          href={`/${username}/bookmarks`}
+          className="flex items-center justify-between text-muted-foreground">
+          <div className=" flex items-center gap-3">
+            <Bookmark className=" w-4 h-4" />
+            <span className=" text-sm">All Bookmarks</span>
+          </div>
+          <span className=" text-xs text-muted-foreground">130</span>
+        </Link>
+        {/* <Link
             href={`/${username}/saved`}
             className="flex items-center justify-between text-muted-foreground">
             <div className=" flex items-center gap-3">
@@ -87,50 +86,51 @@ const Sidebar: FC<SidebarProps> = ({}) => {
             </div>
             <span className=" text-xs text-muted-foreground">53</span>
           </Link> */}
-          <Link
-            href={`/${username}/explore`}
-            className="flex items-center justify-between text-muted-foreground">
-            <div className=" flex items-center gap-3">
-              <Globe className=" w-4 h-4" />
-              <span className=" text-sm">Explore</span>
-            </div>
-            <span className=" text-xs text-muted-foreground">14872</span>
-          </Link>
-
-          {/* <CreateBookmark /> */}
-        </div>
-
-        <div>
-          <div className=" flex justify-between items-center mb-4">
-            <span className=" text-sm font-semibold">MY COLLECTIONS</span>
-            <CreateCollection />
-          </div>
-
-          {/* collection list */}
-          <div className=" flex flex-col gap-3 mb-6">
-            {collections?.map((collection: any) => (
-              <Link
-                key={collection?.id}
-                href={`/${username}/c/${collection?.id}`}
-                className="flex items-center justify-between">
-                <div className=" text-sm flex items-center gap-3 text-muted-foreground">
-                  {collection?.title}
-                </div>
-                <span className=" text-xs text-muted-foreground">74</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex-1"></div>
-
         <Link
-          href="/abhishek/explore"
-          className=" flex items-center justify-center text-base font-normal dark:font-medium gap-2 border shadow-md rounded-md py-3 px-2">
-          Download
-          <Download className=" w-4 h-4" />
+          href={`/${username}/explore`}
+          className="flex items-center justify-between text-muted-foreground">
+          <div className=" flex items-center gap-3">
+            <Globe className=" w-4 h-4" />
+            <span className=" text-sm">Explore</span>
+          </div>
+          <span className=" text-xs text-muted-foreground">14872</span>
         </Link>
+
+        {/* <CreateBookmark /> */}
       </div>
+
+      <div>
+        <div className=" flex justify-between items-center mb-4">
+          <span className=" text-sm font-semibold">MY COLLECTIONS</span>
+          <CreateCollection />
+        </div>
+
+        {/* collection list */}
+        <div className=" flex flex-col gap-3 mb-6">
+          {collections?.map((collection: any) => (
+            <Link
+              key={collection?.id}
+              href={`/${username}/c/${collection?.id}`}
+              className="flex items-center justify-between">
+              <div className=" text-sm flex items-center gap-3 text-muted-foreground">
+                {collection?.title}
+              </div>
+              <span className=" text-xs text-muted-foreground">74</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex-1"></div>
+
+      <Link
+        href="/abhishek/explore"
+        className=" flex items-center justify-center text-base font-normal dark:font-medium gap-2 border shadow-md rounded-md py-3 px-2">
+        Download
+        <Download className=" w-4 h-4" />
+      </Link>
+      {/* <div className=" flex flex-col p-5  overflow-y-auto h-full">
+      </div> */}
     </aside>
   )
 }
