@@ -17,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@repo/ui/components/popover"
-import { useCurrentUser } from "@/services/queries"
+import { useMyCollection } from "@/services/queries"
 
 interface CreateBookmarkProps {
   id: string
@@ -26,15 +26,10 @@ interface CreateBookmarkProps {
 
 const CollectionList: FC<CreateBookmarkProps> = ({ id, setId }) => {
   const [open, setOpen] = useState(false)
-  const [title, setTitle] = useState("")
 
-  const currentUserQuery = useCurrentUser({
-    isCollection: true,
-  })
-  const currentUser = currentUserQuery?.data?.data?.data
-  const collections = currentUser?.collection
+  const collectionsQuery = useMyCollection()
+  const collections = collectionsQuery?.data?.data?.data
 
-  // console.log(collections)
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>

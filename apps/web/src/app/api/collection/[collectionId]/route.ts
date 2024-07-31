@@ -16,6 +16,33 @@ export async function GET(req: Request) {
     where: {
       id,
     },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      thumbnail: true,
+      isPublic: true,
+      userId: true,
+      user: {
+        select: {
+          id: true,
+          name: true,
+          username: true,
+        },
+      },
+      bookmark: {
+        select: {
+          id: true,
+          title: true,
+          url: true,
+          note: true,
+          ogImage: true,
+          ogTitle: true,
+          ogDescription: true,
+          createdAt: true,
+        },
+      },
+    },
   })
 
   if (collection?.isPublic) {

@@ -1,18 +1,17 @@
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { NextResponse } from "next/server"
 import {
   createCollectionSchema,
   updateCollectionPricacySchema,
   updateCollectionSchema,
 } from "@/utils/validations"
-import { NextResponse } from "next/server"
 
 // Get my or public collection list
 export async function GET(req: Request) {
   const session = await auth()
 
   const url = new URL(req.url)
-
   const isMy = url.searchParams.get("my")
 
   if (isMy) {
@@ -36,13 +35,18 @@ export async function GET(req: Request) {
         description: true,
         thumbnail: true,
         isPublic: true,
-        user: {
+        _count: {
           select: {
-            id: true,
-            name: true,
-            username: true,
+            bookmark: true,
           },
         },
+        // user: {
+        //   select: {
+        //     id: true,
+        //     name: true,
+        //     username: true,
+        //   },
+        // },
       },
     })
 
@@ -65,13 +69,18 @@ export async function GET(req: Request) {
         description: true,
         thumbnail: true,
         isPublic: true,
-        user: {
+        _count: {
           select: {
-            id: true,
-            name: true,
-            username: true,
+            bookmark: true,
           },
         },
+        // user: {
+        //   select: {
+        //     id: true,
+        //     name: true,
+        //     username: true,
+        //   },
+        // },
       },
     })
 
@@ -311,17 +320,20 @@ export async function DELETE(req: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: "You must be logged in to update a collection",
+        message: "You must be logged in to delete a collection",
       },
       { status: 401 }
     )
   }
 
-  const { id } = await req.json()
+  const url = new URL(req.url)
+  const id = url.searchParams.get("collectionId")
+
+  // const { id } = await req.json()
 
   const isCollection = await db.collection.findUnique({
     where: {
-      id: id,
+      id,
     },
   })
 

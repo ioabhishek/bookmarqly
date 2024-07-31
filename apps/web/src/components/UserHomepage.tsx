@@ -4,18 +4,22 @@ import { useUser } from "@/services/queries"
 import { buttonVariants } from "@repo/ui/components/button"
 import Link from "next/link"
 import UserPage from "@/components/userPage"
+import { useParams } from "next/navigation"
 
 interface UserHomepageProps {
   session: Object
 }
 
 const UserHomepage: FC<UserHomepageProps> = ({ session }) => {
+  const params = useParams()
+
+  // console.log(params?.username)
   const getUserQuery = useUser(session?.user?.username)
   const userDetails = getUserQuery?.data?.data?.data
 
   if (getUserQuery?.isLoading) {
     return (
-      <div className=" flex flex-col items-center justify-center h-full gap-5">
+      <div className=" flex flex-col items-center justify-center h-screen flex-1 gap-5">
         <h3 className=" text-3xl font-bold">Loading...</h3>
       </div>
     )

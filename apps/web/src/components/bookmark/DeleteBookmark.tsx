@@ -31,15 +31,11 @@ const DeleteBookmark: FC<DeleteBookmarkProps> = ({ bookmarkId }) => {
   const [loading, setLoading] = useState(false)
   const deleteBookmarkMutation = useDeleteBookmark()
 
-  const bookmarkData = {
-    bookmarkId: bookmarkId,
-  }
-
   const handleDelete = async () => {
     setLoading(true)
 
     try {
-      const response = await deleteBookmarkMutation.mutateAsync(bookmarkData)
+      const response = await deleteBookmarkMutation.mutateAsync(bookmarkId)
       if (response?.data?.success) {
         setLoading(false)
         setOpen(false)

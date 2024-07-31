@@ -42,7 +42,7 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
 
   const form = useForm({})
 
-  const { register, handleSubmit, formState } = form
+  const { register, handleSubmit, formState, reset } = form
   const { errors } = formState
 
   const createCollectionMutation = useCreateCollection()
@@ -61,6 +61,7 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
       if (response?.data?.success) {
         setLoading(false)
         setOpen(false)
+        reset({ title: "", description: "" })
         // toast.success(response?.data?.message)
       }
     } catch (error) {

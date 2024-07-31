@@ -41,7 +41,7 @@ const Header: FC<HeaderProps> = async ({}) => {
         <div className="ml-auto"></div>
 
         {session?.user ? (
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href={`/${session?.user?.username}`}>Dashboard</Link>
         ) : (
           <Link
             href="/login"

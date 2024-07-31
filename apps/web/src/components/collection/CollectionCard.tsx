@@ -1,11 +1,12 @@
 "use client"
 import { Card } from "@repo/ui/components/card"
 import { Bookmark, Copy, Share, Star } from "lucide-react"
+import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 
 const CollectionCard = ({ data }) => {
-  const user = localStorage.getItem("user")
+  const { data: session } = useSession()
 
   return (
     <Card className=" p-3 relative hover:border-primary/50">
@@ -44,7 +45,9 @@ const CollectionCard = ({ data }) => {
           <Share className=" w-4 h-4 cursor-pointer" />
         </div>
       </div>
-      <Link href={`/c/${data?.id}`} className=" absolute inset-0 z-0"></Link>
+      <Link
+        href={`/${session?.user?.username}/c/${data?.id}`}
+        className=" absolute inset-0 z-0"></Link>
     </Card>
   )
 }

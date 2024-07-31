@@ -16,9 +16,9 @@ import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Switch } from "@repo/ui/components/switch"
 import axiosPublic from "@/hooks/useAxios"
-import { SINGLE_COLLECTION } from "@/utils/Endpoints"
-import { useCurrentUser } from "@/services/queries"
+import { COLLECTION } from "@/utils/Endpoints"
 import { Label } from "@repo/ui/components/label"
+import { useSession } from "next-auth/react"
 
 interface CollectionShareProps {
   collectionId: string
@@ -34,14 +34,11 @@ const CollectionShare: FC<CollectionShareProps> = ({ collectionId }) => {
   const [isHidden, setIsHidden] = useState(true)
   const [loading, setLoading] = useState(false)
 
-  const currentUserQuery = useCurrentUser({})
-  const currentUser = currentUserQuery?.data?.data?.data
+  const { data: session } = useSession()
 
   const form = useForm({
     defaultValues: async () => {
-      const response = await axiosPublic.get(
-        `${SINGLE_COLLECTION}${collectionId}`
-      )
+      const response = await axiosPublic.get(`${COLLECTION}/${collectionId}`)
       const data = response?.data?.data
       setIsSwitchOn(data?.isPublic)
 
@@ -119,7 +116,7 @@ const CollectionShare: FC<CollectionShareProps> = ({ collectionId }) => {
                 className="relative w-full flex items-center justify-between p-2 "
                 style={{ maxWidth: "350px" }}>
                 <span className="text-sm break-words overflow-hidden overflow-ellipsis whitespace-nowrap">
-                  {`https://bookmarqly.com/${currentUser?.username}/c/${collectionId}`}
+                  {`https://bookmarqly.com/${session?.user?.username}/c/${collectionId}`}
                 </span>
               </div>
               <div className="w-10 h-10 bg-black dark:bg-white flex items-center justify-center cursor-pointer">

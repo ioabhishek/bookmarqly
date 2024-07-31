@@ -12,11 +12,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@repo/ui/components/alert-dialog"
-import { Trash2 } from "lucide-react"
+import { Loader2, Trash2 } from "lucide-react"
 import { Button } from "@repo/ui/components/button"
 import { useDeleteCollection } from "@/services/mutations"
 import { useRouter } from "next/navigation"
-import { useCurrentUser } from "@/services/queries"
+import { useSession } from "next-auth/react"
 
 interface DeleteCollectionPopupProps {
   collectionId: string
@@ -30,23 +30,17 @@ const DeleteCollectionPopup: FC<DeleteCollectionPopupProps> = ({
   const deleteCollectionMutation = useDeleteCollection()
   const router = useRouter()
 
-  const currentUserQuery = useCurrentUser({})
-  const currentUser = currentUserQuery?.data?.data?.data
-
-  const deleteCollectionData = {
-    id: collectionId,
-  }
+  const { data: session } = useSession()
 
   const handleDelete = async () => {
     setLoading(true)
     try {
-      const response =
-        await deleteCollectionMutation.mutateAsync(deleteCollectionData)
+      const response = await deleteCollectionMutation.mutateAsync(collectionId)
       if (response?.data?.success) {
         setLoading(false)
         setOpen(false)
         // toast.success("Collection deleted successfully!")
-        router.push(`/${currentUser?.username}`)
+        router.push(`/${session?.user?.username}`)
       }
     } catch (error) {
       setLoading(false)
@@ -74,7 +68,9 @@ const DeleteCollectionPopup: FC<DeleteCollectionPopupProps> = ({
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <Button onClick={handleDelete}>
-              {loading ? "Deleting..." : "Delete"}
+              {loading
+                ? `Deleting ${(<Loader2 className="animate-spin w-4 h-4 " />)}`
+                : "Delete"}
             </Button>
             {/* <AlertDialogAction>Continue</AlertDialogAction> */}
           </AlertDialogFooter>

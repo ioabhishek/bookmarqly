@@ -1,27 +1,42 @@
+"use client"
 import Image from "next/image"
 import { Button } from "@repo/ui/components/button"
-import { auth, signIn } from "@/lib/auth"
+import { signIn } from "next-auth/react"
+// import { auth, signIn } from "@/lib/auth"
 
 const GoogleLogin = async () => {
-  const session = await auth()
+  // const session = await auth()
 
   return (
-    <form
-      action={async () => {
-        "use server"
-        await signIn("google")
-      }}>
-      <Button className="w-full" type="submit">
-        <Image
-          src="/google.png"
-          width={18}
-          height={18}
-          alt="google logo"
-          className="mr-2"
-        />
-        Google
-      </Button>
-    </form>
+    <Button
+      className="w-full"
+      type="submit"
+      onClick={() => signIn("google", { callbackUrl: "/onboarding" })}>
+      <Image
+        src="/google.png"
+        width={18}
+        height={18}
+        alt="google logo"
+        className="mr-2"
+      />
+      Google
+    </Button>
+    // <form
+    //   action={async () => {
+    //     "use server"
+    //     await signIn("google", { callbackUrl: "/onboarding" })
+    //   }}>
+    //   <Button className="w-full" type="submit">
+    //     <Image
+    //       src="/google.png"
+    //       width={18}
+    //       height={18}
+    //       alt="google logo"
+    //       className="mr-2"
+    //     />
+    //     Google
+    //   </Button>
+    // </form>
   )
 }
 

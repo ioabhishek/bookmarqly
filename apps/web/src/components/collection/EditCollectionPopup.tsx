@@ -16,7 +16,7 @@ import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Switch } from "@repo/ui/components/switch"
 import axiosPublic from "@/hooks/useAxios"
-import { SINGLE_COLLECTION } from "@/utils/Endpoints"
+import { COLLECTION } from "@/utils/Endpoints"
 import { Textarea } from "@repo/ui/components/textarea"
 // import { UploadButton } from "@/utils/uploadthing"
 import Link from "next/link"
@@ -48,9 +48,7 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
 
   const form = useForm({
     defaultValues: async () => {
-      const response = await axiosPublic.get(
-        `${SINGLE_COLLECTION}${collectionId}`
-      )
+      const response = await axiosPublic.get(`${COLLECTION}/${collectionId}`)
       const data = response?.data?.data
       setThumbnail(data?.thumbnail)
       setIsSwitchOn(data?.isPublic)

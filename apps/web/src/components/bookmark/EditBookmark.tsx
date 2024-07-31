@@ -20,7 +20,7 @@ import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Switch } from "@repo/ui/components/switch"
 import axiosPublic from "@/hooks/useAxios"
-import { SINGLE_BOOKMARK, SINGLE_COLLECTION } from "@/utils/Endpoints"
+import { BOOKMARK, SINGLE_BOOKMARK } from "@/utils/Endpoints"
 import { Textarea } from "@repo/ui/components/textarea"
 import {
   Tooltip,
@@ -48,7 +48,7 @@ const EditBookmark: FC<EditBookmarkProps> = ({ bookmarkId }) => {
 
   const form = useForm({
     defaultValues: async () => {
-      const response = await axiosPublic.get(`${SINGLE_BOOKMARK}${bookmarkId}`)
+      const response = await axiosPublic.get(`${BOOKMARK}/${bookmarkId}`)
       const data = response?.data?.data
 
       return {

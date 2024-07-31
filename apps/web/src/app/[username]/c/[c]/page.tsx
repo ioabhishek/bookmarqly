@@ -41,18 +41,21 @@ const page = () => {
     <div className="w-full p-6">
       {/* Page Title & Actions */}
       <Card className=" flex items-start p-3 z-50 gap-4 mb-8">
-        <Image
+        {/* <Image
           // src="/dummy.avif"
           src={singleCollection?.thumbnail}
           width="300"
           height="200"
           alt=""
           className=" w-[280px] h-auto aspect-video rounded-md border"
-        />
+        /> */}
         <div className=" flex flex-col gap-1 w-full">
           <div className=" flex justify-between items-center mb-1">
             <h2 className=" flex items-center gap-2 text-3xl font-semibold">
               {singleCollection?.title}
+              <span className=" w-fit text-xs font-normal bg-primary/10 text-primary py-1 px-2 rounded-full">
+                {singleCollection?.isPublic ? "Public" : "Private"}
+              </span>
             </h2>
             <div className=" flex items-center gap-2">
               <CreateBookmarkPopup collectionId={collectionId} />
@@ -61,10 +64,6 @@ const page = () => {
               <CollectionShare collectionId={collectionId} />
             </div>
           </div>
-
-          <span className=" w-fit text-xs font-normal bg-primary/10 text-primary py-1 px-2 rounded-full">
-            {singleCollection?.isPublic ? "Public" : "Private"}
-          </span>
 
           <p className=" text-sm font-normal mb-1 text-muted-foreground">
             {singleCollection?.description}

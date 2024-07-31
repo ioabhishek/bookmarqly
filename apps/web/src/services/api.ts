@@ -1,5 +1,6 @@
 import axiosPublic from "@/hooks/useAxios"
 import {
+  BOOKMARK,
   COLLECTION,
   COLLECTION_PRIVACY,
   CREATE_BOOKMARK,
@@ -45,7 +46,7 @@ export const getUser = async (data: any) => {
 }
 
 export const getMyCollections = async () => {
-  return await axiosPublic.get(`${MY_COLLECTION}`)
+  return await axiosPublic.get(`${COLLECTION}?my=true`)
 }
 
 export const getMyBookmarks = async () => {
@@ -57,29 +58,29 @@ export const createCollection = async (data: any) => {
 }
 
 export const updateCollection = async (data: any) => {
-  return await axiosPublic.post(`${UPDATE_COLLECTION}`, data)
+  return await axiosPublic.put(`${COLLECTION}`, data)
 }
 
 export const updateCollectionPrivacy = async (data: any) => {
-  return await axiosPublic.post(`${COLLECTION_PRIVACY}`, data)
+  return await axiosPublic.patch(`${COLLECTION}`, data)
 }
 
-export const deleteCollection = async (data: any) => {
-  return await axiosPublic.post(`${DELETE_COLLECTION}`, data)
+export const deleteCollection = async (collectionId: any) => {
+  return await axiosPublic.delete(`${COLLECTION}?collectionId=${collectionId}`)
 }
 
 export const getSingleCollection = async (collectionId: any) => {
-  return await axiosPublic.get(`${SINGLE_COLLECTION}${collectionId}`)
+  return await axiosPublic.get(`${COLLECTION}/${collectionId}`)
 }
 
 export const createBookmark = async (data: any) => {
-  return await axiosPublic.post(`${CREATE_BOOKMARK}`, data)
+  return await axiosPublic.post(`${BOOKMARK}`, data)
 }
 
 export const updateBookmark = async (data: any) => {
-  return await axiosPublic.post(`${UPDATE_BOOKMARK}`, data)
+  return await axiosPublic.put(`${BOOKMARK}`, data)
 }
 
-export const deleteBookmark = async (data: any) => {
-  return await axiosPublic.post(`${DELETE_BOOKMARK}`, data)
+export const deleteBookmark = async (bookmarkId: string) => {
+  return await axiosPublic.delete(`${BOOKMARK}?bookmarkId=${bookmarkId}`)
 }

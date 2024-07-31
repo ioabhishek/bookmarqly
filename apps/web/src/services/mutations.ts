@@ -85,6 +85,9 @@ export function useCreateCollection() {
         console.log(error)
       } else {
         await queryClient.invalidateQueries({
+          queryKey: ["myCollection"],
+        })
+        await queryClient.invalidateQueries({
           queryKey: ["getUser"],
         })
       }
@@ -137,7 +140,7 @@ export function useUpdateCollectionPrivacy() {
 export function useDeleteCollection() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data) => deleteCollection(data),
+    mutationFn: (collectionId) => deleteCollection(collectionId),
     onMutate: () => {},
     onError: (error) => {},
     onSuccess: (data) => {
@@ -191,7 +194,7 @@ export function useUpdateBookmark() {
 export function useDeleteBookmark() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data) => deleteBookmark(data),
+    mutationFn: (bookmarkId) => deleteBookmark(bookmarkId),
     onSettled: async (_, error) => {
       if (error) {
         console.log(error)

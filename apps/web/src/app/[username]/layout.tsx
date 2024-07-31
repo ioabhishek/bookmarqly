@@ -12,7 +12,7 @@ export default function UserLayout({
         <AppHeader />
         <div className="">
           <Sidebar />
-          <div className="pl-[280px] w-full h-[calc(100%-64px)] ">
+          <div className="pl-[280px] w-full h-[calc(100%-64px)] flex flex-col">
             {children}
           </div>
         </div>

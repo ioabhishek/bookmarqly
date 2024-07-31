@@ -32,7 +32,7 @@ const CreateBookmark: FC<CreateBookmarkProps> = () => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const form = useForm()
-  const { register, handleSubmit, formState } = form
+  const { register, handleSubmit, formState, reset } = form
   const { errors } = formState
   const createBookmarkMutation = useCreateBookmark()
 
@@ -50,6 +50,7 @@ const CreateBookmark: FC<CreateBookmarkProps> = () => {
       if (response?.data?.success) {
         setLoading(false)
         setOpen(false)
+        reset({ url: "" })
         // toast.success(response?.data?.message)
       }
     } catch (error) {

@@ -22,10 +22,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@repo/ui/components/dropdown-menu"
-import { useLogout } from "@/services/mutations"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useCurrentUser } from "@/services/queries"
 import { Input } from "@repo/ui/components/input"
 import { signOut, useSession } from "next-auth/react"
 import CreateBookmark from "../bookmark/CreateBookmark"
@@ -80,7 +77,7 @@ const AppHeader = () => {
                 <span>Upgrade</span>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => signOut()}
+                onClick={() => signOut({ callbackUrl: "/" })}
                 className="flex items-center gap-2 ">
                 <LogOut className="w-4 h-4 text-muted-foreground" />
                 <span>Logout</span>
