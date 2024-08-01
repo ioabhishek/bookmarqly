@@ -4,7 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { JWTPayload, SignJWT, importJWK } from "jose"
 import { db } from "./db"
 import { cookies } from "next/headers"
-import { generateFromEmail, generateUsername } from "unique-username-generator"
+// import { generateFromEmail, generateUsername } from "unique-username-generator"
 
 export interface session extends Session {
   user: {
@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   secret: process.env.AUTH_SECRET || "secret",
-  adapter: PrismaAdapter(db),
+  // adapter: PrismaAdapter(db),
   providers: [Google],
   debug: true,
   callbacks: {
@@ -43,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: token?.email,
           image: token?.picture,
         })
-        const username = generateFromEmail(token?.email, 3)
+        // const username = generateFromEmail(token?.email, 3)
 
         // cookies().set("authjs.access-token", accessToken)
 
@@ -53,16 +53,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
         })
 
-        if (!dbUser?.username) {
-          await db.user.update({
-            where: {
-              id: token?.sub,
-            },
-            data: {
-              username,
-            },
-          })
-        }
+        // if (!dbUser?.username) {
+        //   await db.user.update({
+        //     where: {
+        //       id: token?.sub,
+        //     },
+        //     data: {
+        //       username,
+        //     },
+        //   })
+        // }
 
         session.user.id = token.sub
         session.user.username = dbUser?.username

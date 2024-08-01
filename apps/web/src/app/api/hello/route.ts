@@ -1,26 +1,10 @@
-import { auth } from "@/lib/auth"
-import { db } from "@/lib/db"
-import { NextResponse } from "next/server"
+import { getRequestContext } from "@cloudflare/next-on-pages"
+import type { NextRequest } from "next/server"
 
-export async function GET() {
-  const session = await auth()
-  const users = await db.user.findMany()
+export const runtime = "edge"
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        data: users,
-      },
-      { status: 401 }
-    )
-  }
+export async function GET(request: NextRequest) {
+  const responseText = "Hello World"
 
-  return NextResponse.json(
-    {
-      success: true,
-      data: users,
-    },
-    { status: 200 }
-  )
+  return new Response(responseText)
 }
