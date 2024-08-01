@@ -90,7 +90,14 @@ pnpm run deploy
 
 <!-- when updating schema -->
 
-pnpx prisma migrate diff --from-local-d1 --to-schema-datamodel ./prisma/schema.prisma --script --output migrations/0003_updated_schema.sql
+1. update your schema
+2. npx wrangler d1 migrations create bookmarqly-db sql_file_name
+3. pnpx prisma migrate diff --from-local-d1 --to-schema-datamodel ./prisma/schema.prisma --script --output migrations/0003_updated_schema.sql
+4. pnpx wrangler d1 migrations apply bookmarqly-db --local
+5. pnpx wrangler d1 migrations apply bookmarqly-db --remote
+6. pnpx prisma generate
+7. pnpm run dev
+8. pnpm run deploy
 
 <!-- or follow this tutorial -->
 
