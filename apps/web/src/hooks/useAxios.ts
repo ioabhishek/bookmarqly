@@ -1,10 +1,24 @@
 import axios from "axios"
-import { BASE_URL, REFRESH_TOKEN } from "@/utils/Endpoints"
+import { BACKEND_URL, BASE_URL, REFRESH_TOKEN } from "@/utils/Endpoints"
+import Cookies from "js-cookie"
 
 const axiosPublic = axios.create({
-  baseURL: BASE_URL,
+  baseURL: BACKEND_URL,
   withCredentials: true,
 })
+
+axiosPublic.interceptors.request.use(
+  (config) => {
+    const accessToken = Cookies.get("accessToken")
+    if (accessToken) {
+      config.headers.Authorization = "Bearer " + accessToken
+    }
+    return config
+  },
+  (err) => {
+    Promise.reject(err)
+  }
+)
 
 // axiosPublic.interceptors.request.use(
 //   (config) => {

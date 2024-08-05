@@ -1,33 +1,20 @@
-import { PrismaD1 } from "@prisma/adapter-d1"
-import { PrismaClient } from "@prisma/client"
 import { Hono } from "hono"
+import auth from "./routes/auth.route"
+import { cors } from "hono/cors"
+import collection from "./routes/collection.route"
 
-export interface Env {
-  DB: D1Database
-}
+const app = new Hono()
 
-const app = new Hono<{ Bindings: CloudflareEnv }>()
-
-app.get("/", async (c) => {
-  const adapter = new PrismaD1(c.env.DB)
-  const prisma = new PrismaClient({ adapter })
-  const users = await prisma.user.findMany()
-  return c.json(users)
-})
-
-app.post("/", async (c) => {
-  const adapter = new PrismaD1(c.env.DB)
-  const prisma = new PrismaClient({ adapter })
-  const { email, name } = await c.req.json()
-
-  const user = await prisma.user.create({
-    data: {
-      email,
-      name,
-    },
+app.use(
+  "/*",
+  cors({
+    origin: "http://localhost:3000",
+    allowMethods: ["POST", "GET", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true,
   })
+)
 
-  return c.json(user)
-})
+app.route("/collection", collection)
+app.route("/auth", auth)
 
 export default app

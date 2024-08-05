@@ -1,5 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
+  checkUsername,
   getCurrentUser,
   getMyBookmarks,
   getMyCollections,
@@ -7,6 +8,16 @@ import {
   getUser,
   register,
 } from "./api"
+
+// hono
+export function useCheckUsername(data: any) {
+  return useQuery({
+    queryKey: ["checkUsername"],
+    queryFn: () => checkUsername(data),
+  })
+}
+
+// hono
 
 export function useCurrentUser(data: any) {
   return useQuery({

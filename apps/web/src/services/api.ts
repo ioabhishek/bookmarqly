@@ -19,7 +19,16 @@ import {
   SINGLE_COLLECTION,
   UPDATE_BOOKMARK,
   UPDATE_COLLECTION,
+  USER,
+  USERNAME,
 } from "@/utils/Endpoints"
+
+// Hono apis
+export const checkUsername = async (data: any) => {
+  return await axiosPublic.get(`${USERNAME}?u=${data}`)
+}
+
+// Hono apis
 
 export const register = async (data: any) => {
   return await axiosPublic.post(REGISTER, data)
@@ -42,7 +51,7 @@ export const getCurrentUser = async (data: any) => {
 }
 
 export const getUser = async (data: any) => {
-  return await axiosPublic.get(`${GET_USER}/${data}`)
+  return await axiosPublic.get(`${USER}${data}`)
 }
 
 export const getMyCollections = async () => {

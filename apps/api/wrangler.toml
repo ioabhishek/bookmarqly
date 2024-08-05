@@ -8,8 +8,9 @@ binding = "DB"
 database_name = "bookmarqly-db"
 database_id = "9a14c1b3-6364-49dc-b45a-496406d4e71f"
 
-# [vars]
-# MY_VAR = "my-variable"
+[vars]
+binding = "JWT_SECRET"
+AUTH_SECRET = "f8vYfLTlhP0fpeTmgpNshx7jD4PI7fwTIj4nCLAUOwc="
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
@@ -18,11 +19,6 @@ database_id = "9a14c1b3-6364-49dc-b45a-496406d4e71f"
 # [[r2_buckets]]
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"
-
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "my-database"
-# database_id = ""
 
 # [ai]
 # binding = "AI"

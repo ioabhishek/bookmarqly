@@ -8,26 +8,13 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@repo/ui/components/dialog"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@repo/ui/components/select"
 import { Plus } from "lucide-react"
-import { useMyCollection } from "@/services/queries"
-import { useCreateBookmark, useCreateCollection } from "@/services/mutations"
+import { useCreateBookmark } from "@/services/mutations"
 import { FC, useState } from "react"
-import axiosPublic from "@/hooks/useAxios"
-import { BASE_URL, CREATE_BOOKMARK, CREATE_COLLECTION } from "@/utils/Endpoints"
 import { useForm } from "react-hook-form"
-// import { toast } from "sonner"
 import { Input } from "@repo/ui/components/input"
 import { Label } from "@repo/ui/components/label"
-import { Textarea } from "@repo/ui/components/textarea"
 import { Button } from "@repo/ui/components/button"
-import CollectionList from "./CollectionList"
 
 interface CreateBookmarkProps {
   collectionId: string

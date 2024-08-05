@@ -17,7 +17,7 @@ const Providers: FC<LayoutProps> = ({ children }) => {
       <SessionProvider>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange>
           {children}

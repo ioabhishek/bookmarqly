@@ -13,8 +13,7 @@ interface UserHomepageProps {
 const UserHomepage: FC<UserHomepageProps> = ({ session }) => {
   const params = useParams()
 
-  // console.log(params?.username)
-  const getUserQuery = useUser(session?.user?.username)
+  const getUserQuery = useUser(params?.username)
   const userDetails = getUserQuery?.data?.data?.data
 
   if (getUserQuery?.isLoading) {

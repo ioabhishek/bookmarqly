@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { FC } from "react"
-import { ArrowUpRight } from "lucide-react"
 import { Icons } from "../asset/Icons"
 import { auth } from "@/lib/auth"
+import HeaderCta from "./HeaderCta"
 
 interface HeaderProps {}
 
@@ -40,16 +40,7 @@ const Header: FC<HeaderProps> = async ({}) => {
 
         <div className="ml-auto"></div>
 
-        {session?.user ? (
-          <Link href={`/${session?.user?.username}`}>Dashboard</Link>
-        ) : (
-          <Link
-            href="/login"
-            className="flex items-center gap-2 text-sm font-medium">
-            Sign In
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        )}
+        <HeaderCta session={session} />
       </div>
     </header>
   )

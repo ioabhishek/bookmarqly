@@ -7,10 +7,13 @@
   "dependencies": {
     "@prisma/adapter-d1": "^5.17.0",
     "@prisma/client": "^5.17.0",
-    "hono": "^4.5.3"
+    "hono": "^4.5.3",
+    "jose": "^5.6.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
+    "@types/node": "^20.11.24",
     "prisma": "^5.17.0",
     "wrangler": "^3.57.2"
   }
