@@ -1,6 +1,7 @@
 export const BASE_URL = "http://localhost:3000/"
 
-export const BACKEND_URL = "http://127.0.0.1:8787/"
+// export const BACKEND_URL = "http://127.0.0.1:8787/"
+export const BACKEND_URL = "https://bookmarqly-api.ioabhishek.workers.dev/"
 export const CREATE_UPDATE_USER = "auth/user"
 export const USERNAME = "auth/username"
 export const USER_DETAILS = "auth/user"

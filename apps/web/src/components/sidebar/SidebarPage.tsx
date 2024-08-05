@@ -58,35 +58,6 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
           </div>
           <span className=" text-xs text-muted-foreground">130</span>
         </Link>
-        {/* <Link
-            href={`/${username}/saved`}
-            className="flex items-center justify-between text-muted-foreground">
-            <div className=" flex items-center gap-3">
-              <Bookmark className=" w-4 h-4" />
-              <span className=" text-sm">Saved</span>
-            </div>
-            <span className=" text-xs text-muted-foreground">30</span>
-          </Link>
-          <Link
-            href={`/${username}/favourite`}
-            className="flex items-center justify-between text-muted-foreground">
-            <div className=" flex items-center gap-3">
-              <Star className="w-4 h-4" />
-              <span className=" text-sm">Favourite</span>
-            </div>
-            <span className=" text-xs text-muted-foreground">53</span>
-          </Link> */}
-        {/* <Link
-          href={`/explore`}
-          className="flex items-center justify-between text-muted-foreground">
-          <div className=" flex items-center gap-3">
-            <Globe className=" w-4 h-4" />
-            <span className=" text-sm">Explore</span>
-          </div>
-          <span className=" text-xs text-muted-foreground">14872</span>
-        </Link> */}
-
-        {/* <CreateBookmark /> */}
       </div>
 
       <div>

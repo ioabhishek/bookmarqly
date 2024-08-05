@@ -1,5 +1,5 @@
 import axios from "axios"
-import { BACKEND_URL, BASE_URL, REFRESH_TOKEN } from "@/utils/Endpoints"
+import { BACKEND_URL } from "@/utils/Endpoints"
 import Cookies from "js-cookie"
 
 const axiosPublic = axios.create({

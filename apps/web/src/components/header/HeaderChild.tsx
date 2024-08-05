@@ -30,22 +30,22 @@ const HeaderChild: FC<HeaderChildProps> = ({ session }) => {
               <nav className=" flex items-center gap-8 border px-6 py-1.5 rounded-full absolute left-1/2 transform -translate-x-1/2 shadow-sm z-10">
                 <Link
                   href="/"
-                  className=" text-base font-medium hover:opacity-70">
+                  className=" text-base font-normal hover:opacity-70">
                   Home
                 </Link>
-                <Link
+                {/* <Link
                   href="/explore"
                   className=" text-base font-medium hover:opacity-70">
                   Explore
-                </Link>
+                </Link> */}
                 <Link
                   href="/features"
-                  className=" text-base font-medium hover:opacity-70">
+                  className=" text-base font-normal hover:opacity-70">
                   Features
                 </Link>
                 <Link
                   href="/pricing"
-                  className=" text-base font-medium hover:opacity-70">
+                  className=" text-base font-normal hover:opacity-70">
                   Pricing
                 </Link>
               </nav>
