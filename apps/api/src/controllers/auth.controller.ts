@@ -59,6 +59,7 @@ export const userDetails = async (c: any) => {
       email: true,
       username: true,
       image: true,
+      collection: true,
     },
   })
 

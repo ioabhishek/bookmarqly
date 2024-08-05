@@ -32,6 +32,12 @@ importers:
       jose:
         specifier: ^5.6.3
         version: 5.6.3
+      open-graph:
+        specifier: ^0.2.6
+        version: 0.2.6
+      open-graph-scraper:
+        specifier: ^6.7.0
+        version: 6.7.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -42,6 +48,9 @@ importers:
       '@types/node':
         specifier: ^20.11.24
         version: 20.11.24
+      '@types/open-graph':
+        specifier: ^0.2.5
+        version: 0.2.5
       prisma:
         specifier: ^5.17.0
         version: 5.17.0
@@ -1413,6 +1422,9 @@ packages:
     peerDependencies:
       react: ^18.0.0
 
+  '@types/cheerio@0.22.35':
+    resolution: {integrity: sha512-yD57BchKRvTV+JD53UZ6PD8KWY5g5rvvMLRnZR3EQBCZXiDT/HR+pKpMzFGlWNhFrXlo7VPZXtKvIEwZkAWOIA==}
+
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
@@ -1433,6 +1445,9 @@ packages:
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
+
+  '@types/open-graph@0.2.5':
+    resolution: {integrity: sha512-LDMDviHmdTgaUpeGK280Twn8fxs3s1Ob1by1514q9ARGZsQxaWBF0Ox37q/wbqDYDetTxFpKAxKvQ5Tx+EKYyQ==}
 
   '@types/prop-types@15.7.11':
     resolution: {integrity: sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==}
@@ -5219,6 +5234,10 @@ snapshots:
       '@tanstack/query-core': 5.51.15
       react: 18.2.0
 
+  '@types/cheerio@0.22.35':
+    dependencies:
+      '@types/node': 20.11.24
+
   '@types/cookie@0.6.0': {}
 
   '@types/js-cookie@3.0.6': {}
@@ -5236,6 +5255,10 @@ snapshots:
       undici-types: 5.26.5
 
   '@types/normalize-package-data@2.4.4': {}
+
+  '@types/open-graph@0.2.5':
+    dependencies:
+      '@types/cheerio': 0.22.35
 
   '@types/prop-types@15.7.11': {}
 

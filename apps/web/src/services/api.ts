@@ -20,6 +20,7 @@ import {
   UPDATE_BOOKMARK,
   UPDATE_COLLECTION,
   USER,
+  USER_DETAILS,
   USERNAME,
 } from "@/utils/Endpoints"
 
@@ -51,7 +52,11 @@ export const getCurrentUser = async (data: any) => {
 }
 
 export const getUser = async (data: any) => {
-  return await axiosPublic.get(`${USER}${data}`)
+  return await axiosPublic.get(`${USERNAME}/${data}`)
+}
+
+export const userDetails = async () => {
+  return await axiosPublic.get(`${USER_DETAILS}`)
 }
 
 export const getMyCollections = async () => {
@@ -75,7 +80,7 @@ export const updateCollectionPrivacy = async (data: any) => {
 }
 
 export const deleteCollection = async (collectionId: any) => {
-  return await axiosPublic.delete(`${COLLECTION}?collectionId=${collectionId}`)
+  return await axiosPublic.delete(`${COLLECTION}/${collectionId}`)
 }
 
 export const getSingleCollection = async (collectionId: any) => {
@@ -91,5 +96,5 @@ export const updateBookmark = async (data: any) => {
 }
 
 export const deleteBookmark = async (bookmarkId: string) => {
-  return await axiosPublic.delete(`${BOOKMARK}?bookmarkId=${bookmarkId}`)
+  return await axiosPublic.delete(`${BOOKMARK}/${bookmarkId}`)
 }

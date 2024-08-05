@@ -2,7 +2,15 @@
 import Link from "next/link"
 import { FC, useEffect, useState } from "react"
 import { Icons } from "../asset/Icons"
-import { Bookmark, Download, Globe, Home, Moon, Sun } from "lucide-react"
+import {
+  Bookmark,
+  Download,
+  Globe,
+  Home,
+  Moon,
+  SquareLibrary,
+  Sun,
+} from "lucide-react"
 import { useTheme } from "next-themes"
 import CreateCollection from "../collection/CreateCollection"
 import axiosPublic from "@/hooks/useAxios"
@@ -16,47 +24,37 @@ interface SidebarProps {
 const SidebarPage: FC<SidebarProps> = ({ session }) => {
   const { theme, setTheme } = useTheme()
 
-  // const handleTheme = () => {
-  //   if (theme === "dark") {
-  //     setTheme("light")
-  //   } else {
-  //     setTheme("dark")
-  //   }
-  // }
+  const handleTheme = () => {
+    if (theme === "dark") {
+      setTheme("light")
+    } else {
+      setTheme("dark")
+    }
+  }
 
   const collectionsQuery = useMyCollection()
   const collections = collectionsQuery?.data?.data?.data
 
   return (
     <aside className=" min-w-[280px] max-w-[280px] overflow-hidden flex flex-col fixed top-16 left-0 p-5 border-r h-[calc(100%-64px)] overflow-y-auto">
-      {/* <div className=" flex justify-between items-center  border-b  min-h-16 px-5 ">
-        <Link href="/" className=" flex items-center gap-3">
-          <Icons.logo className="w-5 h-5 " />
-          <span className=" text-lg font-semibold">Bookmarqly</span>
-        </Link>
-        <div
-          className="flex items-center justify-center cursor-pointer"
-          onClick={handleTheme}>
-          {theme === "dark" && <Sun className=" w-4 h-4 md:w-5 md:h-5" />}
-          {theme === "light" && <Moon className="w-4 h-4 md:w-5 md:h-5" />}
-        </div>
-      </div> */}
-
       <div className=" flex flex-col gap-3 mb-10">
         <Link
-          href={`/${session?.user?.username}`}
+          href={`/`}
           className="flex items-center justify-between text-muted-foreground">
           <div className=" flex items-center gap-3">
-            <Home className=" w-4 h-4" />
-            <span className=" text-sm">Home</span>
+            <SquareLibrary className=" w-4 h-4" />
+            <span className=" text-sm">Collections</span>
           </div>
+          <span className=" text-xs text-muted-foreground">
+            {collections?.length}
+          </span>
         </Link>
         <Link
-          href={`/${session?.user?.username}/bookmarks`}
+          href={`/bookmarks`}
           className="flex items-center justify-between text-muted-foreground">
           <div className=" flex items-center gap-3">
             <Bookmark className=" w-4 h-4" />
-            <span className=" text-sm">All Bookmarks</span>
+            <span className=" text-sm">Bookmarks</span>
           </div>
           <span className=" text-xs text-muted-foreground">130</span>
         </Link>
@@ -78,15 +76,15 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
             </div>
             <span className=" text-xs text-muted-foreground">53</span>
           </Link> */}
-        <Link
-          href={`/${session?.user?.username}/explore`}
+        {/* <Link
+          href={`/explore`}
           className="flex items-center justify-between text-muted-foreground">
           <div className=" flex items-center gap-3">
             <Globe className=" w-4 h-4" />
             <span className=" text-sm">Explore</span>
           </div>
           <span className=" text-xs text-muted-foreground">14872</span>
-        </Link>
+        </Link> */}
 
         {/* <CreateBookmark /> */}
       </div>
@@ -102,7 +100,7 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
           {collections?.map((collection: any) => (
             <Link
               key={collection?.id}
-              href={`/${session?.user?.username}/c/${collection?.id}`}
+              href={`/c/${collection?.id}`}
               className="flex items-center justify-between">
               <div className=" text-sm flex items-center gap-3 text-muted-foreground">
                 {collection?.title}
@@ -114,15 +112,19 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
       </div>
 
       <div className="flex-1"></div>
+      <div
+        className="flex items-center justify-center cursor-pointer"
+        onClick={handleTheme}>
+        {theme === "dark" && <Sun className=" w-4 h-4 md:w-5 md:h-5" />}
+        {theme === "light" && <Moon className="w-4 h-4 md:w-5 md:h-5" />}
+      </div>
 
-      <Link
-        href="/abhishek/explore"
+      {/* <Link
+        href="/explore"
         className=" flex items-center justify-center text-base font-normal dark:font-medium gap-2 border shadow-md rounded-md py-3 px-2">
         Download
         <Download className=" w-4 h-4" />
-      </Link>
-      {/* <div className=" flex flex-col p-5  overflow-y-auto h-full">
-      </div> */}
+      </Link> */}
     </aside>
   )
 }

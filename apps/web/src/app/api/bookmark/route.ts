@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: "You must be logged in to view bookmarks",
+        message: "You must be logged in to create bookmarks",
       },
       { status: 401 }
     )

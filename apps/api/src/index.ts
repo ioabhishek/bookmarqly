@@ -2,6 +2,7 @@ import { Hono } from "hono"
 import auth from "./routes/auth.route"
 import { cors } from "hono/cors"
 import collection from "./routes/collection.route"
+import bookmark from "./routes/bookmark.route"
 
 const app = new Hono()
 
@@ -14,7 +15,12 @@ app.use(
   })
 )
 
-app.route("/collection", collection)
+app.get("/", async (c) => {
+  return c.text("👋 Hello 👋")
+})
+
 app.route("/auth", auth)
+app.route("/collection", collection)
+app.route("/bookmark", bookmark)
 
 export default app

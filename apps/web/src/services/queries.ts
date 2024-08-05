@@ -7,6 +7,7 @@ import {
   getSingleCollection,
   getUser,
   register,
+  userDetails,
 } from "./api"
 
 // hono
@@ -39,6 +40,14 @@ export function useUser(data: any) {
   return useQuery({
     queryKey: ["getUser"],
     queryFn: () => getUser(data),
+    retry: false,
+  })
+}
+
+export function useUserDetails() {
+  return useQuery({
+    queryKey: ["userDetails"],
+    queryFn: () => userDetails(),
     retry: false,
   })
 }

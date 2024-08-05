@@ -36,7 +36,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true
     },
-    // async session({ session, token }) {
+    // async session({ session, user,  token }) {
     //   const response = await axios.get(`${BACKEND_URL}${USER_DETAILS}`)
 
     //   console.log(response)

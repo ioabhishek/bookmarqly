@@ -88,7 +88,7 @@ export function useCreateCollection() {
           queryKey: ["myCollection"],
         })
         await queryClient.invalidateQueries({
-          queryKey: ["getUser"],
+          queryKey: ["userDetails"],
         })
       }
     },
@@ -110,6 +110,9 @@ export function useUpdateCollection() {
       } else {
         await queryClient.invalidateQueries({
           queryKey: ["singleCollection"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["myCollection"],
         })
       }
     },
@@ -151,9 +154,9 @@ export function useDeleteCollection() {
         console.log(error)
       } else {
         // toast.success("Collection deleted successfully!")
-        // await queryClient.invalidateQueries({
-        //   queryKey: ["singleCollection"],
-        // })
+        await queryClient.invalidateQueries({
+          queryKey: ["myCollection"],
+        })
       }
     },
   })
@@ -185,6 +188,9 @@ export function useUpdateBookmark() {
       } else {
         await queryClient.invalidateQueries({
           queryKey: ["singleCollection"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["myBookmarks"],
         })
       }
     },

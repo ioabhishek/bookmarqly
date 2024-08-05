@@ -45,9 +45,7 @@ const CollectionCard = ({ data }) => {
           <Share className=" w-4 h-4 cursor-pointer" />
         </div>
       </div>
-      <Link
-        href={`/${session?.user?.username}/c/${data?.id}`}
-        className=" absolute inset-0 z-0"></Link>
+      <Link href={`/c/${data?.id}`} className=" absolute inset-0 z-0"></Link>
     </Card>
   )
 }

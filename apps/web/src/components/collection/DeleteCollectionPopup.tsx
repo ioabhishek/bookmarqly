@@ -40,7 +40,7 @@ const DeleteCollectionPopup: FC<DeleteCollectionPopupProps> = ({
         setLoading(false)
         setOpen(false)
         // toast.success("Collection deleted successfully!")
-        router.push(`/${session?.user?.username}`)
+        router.push(`/`)
       }
     } catch (error) {
       setLoading(false)

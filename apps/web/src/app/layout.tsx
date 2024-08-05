@@ -2,6 +2,8 @@ import "@repo/ui/globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Providers from "@/components/Providers"
+import Header from "@/components/header/Header"
+import Sidebar from "@/components/sidebar/Sidebar"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -18,7 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          <div className="flex w-full">
+            <Sidebar />
+            <div className=" w-full">{children}</div>
+          </div>
+        </Providers>
       </body>
     </html>
   )

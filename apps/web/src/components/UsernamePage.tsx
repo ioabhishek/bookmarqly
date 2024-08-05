@@ -4,13 +4,15 @@ import { useUser, useUserDetails } from "@/services/queries"
 import { buttonVariants } from "@repo/ui/components/button"
 import Link from "next/link"
 import UserPage from "@/components/userPage"
+import { usePathname } from "next/navigation"
 
 interface UserHomepageProps {
   session: Object
 }
 
-const UserHomepage: FC<UserHomepageProps> = ({ session }) => {
-  const userDetailsQuery = useUserDetails()
+const UsernamePage: FC<UserHomepageProps> = ({ session }) => {
+  const pathname = usePathname()
+  const userDetailsQuery = useUser(pathname.split("/")[2])
   const userDetails = userDetailsQuery?.data?.data?.data
 
   if (userDetailsQuery?.isLoading) {
@@ -44,19 +46,4 @@ const UserHomepage: FC<UserHomepageProps> = ({ session }) => {
   )
 }
 
-export default UserHomepage
-
-// <div className=" flex flex-col items-center justify-center h-full gap-5">
-//   <Image src="/404.webp" width={400} height={200} alt="404-image" />
-//   <h3 className=" text-3xl font-bold">Why are you here?</h3>
-//   <span className=" text-muted-foreground font-normal text-sm">
-//     You’re not supposed to be here.
-//   </span>
-//   <Link
-//     href="/"
-//     className={`${buttonVariants({
-//       variant: "default",
-//     })} flex items-center gap-2 justify-center`}>
-//     Go Home
-//   </Link>
-// </div>
+export default UsernamePage

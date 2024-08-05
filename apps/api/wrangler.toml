@@ -1,4 +1,4 @@
-name = "bookmarqly-db"
+name = "bookmarqly-api"
 main = "src/index.ts"
 compatibility_date = "2024-08-01"
 compatibility_flags = ["nodejs_compat"]

@@ -36,7 +36,7 @@ const OnboardingPage: FC<LoadingPageProps> = () => {
 
   useEffect(() => {
     if (user?.username) {
-      router.push(`/${user?.username}`)
+      router.push(`/`)
     }
   }, [user, router])
 

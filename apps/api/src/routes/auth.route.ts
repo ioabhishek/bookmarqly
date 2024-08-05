@@ -10,9 +10,10 @@ import {
 
 const auth = new Hono<{ Bindings: CloudflareEnv }>()
 
-auth.get("/:username", verifyUser, usernameDetails)
 auth.get("/user", jwtVerify, userDetails)
 auth.post("/user", createUpdateUser)
+
+auth.get("/username/:username", verifyUser, usernameDetails)
 auth.get("/username", checkUsername)
 auth.post("/username", jwtVerify, createUsername)
 
