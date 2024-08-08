@@ -98,6 +98,7 @@ export async function GET(req: Request) {
 // Create a collection
 export async function POST(req: Request) {
   const session = await auth()
+  console.log("user session is", session)
 
   if (!session?.user) {
     return NextResponse.json(
