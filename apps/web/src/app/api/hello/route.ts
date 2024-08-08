@@ -3,23 +3,23 @@ import { db } from "@/lib/db"
 import { NextResponse } from "next/server"
 
 export async function GET() {
-  const session = await auth()
-  const users = await db.user.findMany()
+  // const session = await auth()
+  // const users = await db.user.findMany()
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        data: users,
-      },
-      { status: 401 }
-    )
-  }
+  // if (!session?.user) {
+  //   return NextResponse.json(
+  //     {
+  //       success: false,
+  //       session,
+  //     },
+  //     { status: 401 }
+  //   )
+  // }
 
   return NextResponse.json(
     {
       success: true,
-      data: users,
+      session,
     },
     { status: 200 }
   )

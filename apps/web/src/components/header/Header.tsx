@@ -6,7 +6,6 @@ interface HeaderProps {}
 
 const Header: FC<HeaderProps> = async ({}) => {
   const session = await auth()
-  // console.log(session)
 
   return <HeaderChild session={session} />
 }
