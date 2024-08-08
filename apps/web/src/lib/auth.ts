@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const accessToken = await generateJWT({
         id: user?.id,
       })
-      cookies().set("authjs.access-token", accessToken)
+      cookies().set("accessToken", accessToken)
       return true
     },
     async session({ session, token }) {
