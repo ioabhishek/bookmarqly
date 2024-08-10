@@ -9,91 +9,38 @@ import {
 import { verifyToken } from "@/utils/jwtVerification"
 
 // Get my or public collection list
-export async function GET(req: Request) {
-  const session = await auth()
+export async function GET(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
 
-  const url = new URL(req.url)
-  const isMy = url.searchParams.get("my")
-
-  if (isMy) {
-    if (!session?.user) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "You must be logged in to get my collections",
-        },
-        { status: 401 }
-      )
-    }
-
-    const collection = await db.collection.findMany({
-      where: {
-        userId: session.user.id,
-      },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        thumbnail: true,
-        isPublic: true,
-        _count: {
-          select: {
-            bookmark: true,
-          },
-        },
-        // user: {
-        //   select: {
-        //     id: true,
-        //     name: true,
-        //     username: true,
-        //   },
-        // },
-      },
-    })
-
-    return NextResponse.json(
-      {
-        success: true,
-        data: collection,
-        message: "Collection list fetched successfully",
-      },
-      { status: 201 }
-    )
-  } else {
-    const collection = await db.collection.findMany({
-      where: {
-        isPublic: true,
-      },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        thumbnail: true,
-        isPublic: true,
-        _count: {
-          select: {
-            bookmark: true,
-          },
-        },
-        // user: {
-        //   select: {
-        //     id: true,
-        //     name: true,
-        //     username: true,
-        //   },
-        // },
-      },
-    })
-
-    return NextResponse.json(
-      {
-        success: true,
-        data: collection,
-        message: "Collection list fetched successfully",
-      },
-      { status: 201 }
-    )
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
   }
+
+  const collection = await db.collection.findMany({
+    where: {
+      userId: payload?.id,
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      isPublic: true,
+      _count: {
+        select: {
+          bookmark: true,
+        },
+      },
+    },
+  })
+
+  return NextResponse.json(
+    {
+      success: true,
+      data: collection,
+      message: "Collection list fetched successfully",
+    },
+    { status: 201 }
+  )
 }
 
 // Create a collection
@@ -155,17 +102,11 @@ export async function POST(req: NextRequest) {
 }
 
 // Update a collection
-export async function PUT(req: Request) {
-  const session = await auth()
+export async function PUT(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "You must be logged in to update a collection",
-      },
-      { status: 401 }
-    )
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
   }
 
   const jsonRequest = await req.json()
@@ -184,8 +125,7 @@ export async function PUT(req: Request) {
     )
   }
 
-  const { title, description, thumbnail, isPublic, collectionId } =
-    validationResult.data
+  const { name, description, isPublic, collectionId } = validationResult.data
 
   const isCollection = await db.collection.findUnique({
     where: {
@@ -200,7 +140,7 @@ export async function PUT(req: Request) {
     )
   }
 
-  if (isCollection?.userId !== session.user.id) {
+  if (isCollection?.userId !== payload?.id) {
     return NextResponse.json(
       {
         success: false,
@@ -215,10 +155,9 @@ export async function PUT(req: Request) {
       id: collectionId,
     },
     data: {
-      title: title,
-      description: description,
-      thumbnail: thumbnail,
-      isPublic: isPublic,
+      name,
+      description,
+      isPublic,
     },
   })
 
@@ -233,17 +172,11 @@ export async function PUT(req: Request) {
 }
 
 // Update collection privacy
-export async function PATCH(req: Request) {
-  const session = await auth()
+export async function PATCH(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "You must be logged in to update a collection",
-      },
-      { status: 401 }
-    )
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
   }
 
   const jsonRequest = await req.json()
@@ -277,7 +210,7 @@ export async function PATCH(req: Request) {
     )
   }
 
-  if (isCollection?.userId !== session.user.id) {
+  if (isCollection?.userId !== payload?.id) {
     return NextResponse.json(
       {
         success: false,
@@ -307,23 +240,22 @@ export async function PATCH(req: Request) {
 }
 
 // Delete a collection
-export async function DELETE(req: Request) {
-  const session = await auth()
+export async function DELETE(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "You must be logged in to delete a collection",
-      },
-      { status: 401 }
-    )
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
   }
 
   const url = new URL(req.url)
   const id = url.searchParams.get("collectionId")
 
-  // const { id } = await req.json()
+  if (!id) {
+    return NextResponse.json(
+      { success: false, message: "Collection ID is missing" },
+      { status: 400 }
+    )
+  }
 
   const isCollection = await db.collection.findUnique({
     where: {
@@ -338,7 +270,7 @@ export async function DELETE(req: Request) {
     )
   }
 
-  if (isCollection?.userId !== session.user.id) {
+  if (isCollection?.userId !== payload?.id) {
     return NextResponse.json(
       {
         success: false,

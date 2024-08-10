@@ -3,26 +3,24 @@ import { z } from "zod"
 export const createCollectionSchema = z.object({
   name: z.string().min(2, {
     message:
-      "Title should not be empty or should have a minimum of 3 characters",
+      "Name should not be empty or should have a minimum of 3 characters",
   }),
   description: z.string().min(2, {
     message:
       "Description should not be empty or should have a minimum of 3 characters",
   }),
-  // thumbnail: z.string().optional(),
   isPublic: z.boolean(),
 })
 
 export const updateCollectionSchema = z.object({
-  title: z.string().min(2, {
+  name: z.string().min(2, {
     message:
-      "Title should not be empty or should have a minimum of 3 characters",
+      "Name should not be empty or should have a minimum of 3 characters",
   }),
   description: z.string().min(2, {
     message:
       "Description should not be empty or should have a minimum of 3 characters",
   }),
-  thumbnail: z.string().optional(),
   isPublic: z.boolean(),
   collectionId: z
     .string()
