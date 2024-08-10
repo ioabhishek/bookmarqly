@@ -1,11 +1,12 @@
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import {
   createCollectionSchema,
   updateCollectionPricacySchema,
   updateCollectionSchema,
 } from "@/utils/validations"
+import { verifyToken } from "@/utils/jwtVerification"
 
 // Get my or public collection list
 export async function GET(req: Request) {
@@ -96,18 +97,11 @@ export async function GET(req: Request) {
 }
 
 // Create a collection
-export async function POST(req: Request) {
-  const session = await auth()
-  console.log("user session is", session)
+export async function POST(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "You must be logged in to create a collection",
-      },
-      { status: 401 }
-    )
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
   }
 
   const jsonRequest = await req.json()
@@ -130,7 +124,7 @@ export async function POST(req: Request) {
 
   const user = await db.user.findUnique({
     where: {
-      id: session.user.id,
+      id: payload?.id,
     },
   })
 
@@ -145,9 +139,8 @@ export async function POST(req: Request) {
     data: {
       title: title,
       description: description,
-      thumbnail: thumbnail,
       isPublic: isPublic,
-      userId: session.user.id,
+      userId: payload?.id,
     },
   })
 

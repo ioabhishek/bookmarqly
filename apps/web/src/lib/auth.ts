@@ -3,18 +3,7 @@ import NextAuth from "next-auth"
 import { cookies } from "next/headers"
 import Google from "next-auth/providers/google"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { JWTPayload, SignJWT, importJWK } from "jose"
-
-const generateJWT = async (payload: JWTPayload) => {
-  const secret = process.env.AUTH_SECRET || "secret"
-  const jwk = await importJWK({ k: secret, alg: "HS256", kty: "oct" })
-  const jwt = await new SignJWT(payload)
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("365d")
-    .sign(jwk)
-  return jwt
-}
+import { generateJWT } from "@/utils/token.utils"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {

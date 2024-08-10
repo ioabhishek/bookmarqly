@@ -39,9 +39,9 @@ const AppHeader = () => {
         pathname !== "/onboarding" && (
           <div className="border-b h-16 px-4 flex items-center justify-between w-full bg-background sticky top-0 z-10">
             {/* <HeaderSearch /> */}
-            {session?.user && <CreateBookmark />}
+            {/* {session?.user && <CreateBookmark />} */}
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 ml-auto">
               {session?.user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger className=" rounded-full relative">
@@ -56,14 +56,24 @@ const AppHeader = () => {
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
+
                   <DropdownMenuContent align="end">
+                    <DropdownMenuLabel className="flex flex-col items-start">
+                      <span>{session?.user?.name}</span>
+                      <span className="text-sm text-muted-foreground font-normal">
+                        @ioabhishek
+                      </span>
+                    </DropdownMenuLabel>
+
+                    <DropdownMenuSeparator />
+
                     <DropdownMenuItem className="flex items-center gap-2 ">
                       <CircleUserRound className="w-4 h-4 text-muted-foreground" />
                       <span>Profile</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="flex items-center gap-2 ">
                       <Settings className="w-4 h-4 text-muted-foreground" />
-                      <span>Settings</span>
+                      <span>Customize</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="flex items-center gap-2 ">
                       <Zap className="w-4 h-4 text-muted-foreground" />
