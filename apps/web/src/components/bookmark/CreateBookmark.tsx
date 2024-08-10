@@ -63,9 +63,10 @@ const CreateBookmark: FC<CreateBookmarkProps> = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className=" flex items-center justify-center w-9 h-9 rounded-md bg-black dark:bg-white  ml-4 border cursor-pointer">
-          <BookmarkPlus className=" w-4 h-4 text-white dark:text-black " />
-        </div>
+        <Button className=" flex items-center gap-1">
+          New
+          <BookmarkPlus className=" w-4 h-4 " />
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md gap-0 max-h-[90vh] overflow-y-scroll">
         <DialogHeader className="mb-6">

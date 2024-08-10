@@ -82,7 +82,7 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <PlusCircle className=" w-5 h-5" />
+        <Plus className=" w-5 h-5" />
       </DialogTrigger>
       <DialogContent className="max-w-md gap-0 max-h-[90vh] overflow-y-scroll">
         <DialogHeader className="mb-6">
@@ -133,7 +133,7 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
           </div>
 
           {/* thumbnail */}
-          <div className="grid w-full items-center gap-1.5 mb-6">
+          {/* <div className="grid w-full items-center gap-1.5 mb-6">
             <Label
               htmlFor="thumbnail"
               className="mb-2 flex items-center justify-between">
@@ -162,7 +162,7 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
                 <ExternalLink className=" min-w-4 h-4" />
               </Link>
             )}
-          </div>
+          </div> */}
 
           {/* privacy */}
           <div className="grid w-full items-center gap-1.5 mb-6">

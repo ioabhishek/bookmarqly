@@ -18,45 +18,33 @@ const HeaderChild: FC<HeaderChildProps> = ({ session }) => {
 
   return (
     <>
-      {pathname !== "/login" && pathname !== "/onboarding" && (
-        <header className=" w-full border-b bg-background/40 backdrop-blur-lg sticky top-0 z-50 ">
-          <div className=" max-w-screen-2xl h-16 flex items-center m-auto md:px-6 px-0 relative justify-between">
-            <Link href="/" className=" flex items-center gap-3">
+      {pathname === "/" && (
+        <header className="h-12 p-2 w-[60%] mx-auto bg-background/20 backdrop-blur-lg fixed top-6 z-50 border rounded-full left-1/2 transform -translate-x-1/2">
+          <div className="  flex items-center m-auto  relative justify-between">
+            <Link href="/" className=" flex items-center gap-2 ml-4">
               <Icons.logo className="w-5 h-5 " />
               <span className=" text-lg font-semibold">Bookmarqly</span>
             </Link>
 
-            {!session?.user ? (
-              <nav className=" flex items-center gap-8 border px-6 py-1.5 rounded-full absolute left-1/2 transform -translate-x-1/2 shadow-sm z-10">
-                <Link
-                  href="/"
-                  className=" text-base font-normal hover:opacity-70">
-                  Home
-                </Link>
-                {/* <Link
-                  href="/explore"
-                  className=" text-base font-medium hover:opacity-70">
-                  Explore
-                </Link> */}
-                <Link
-                  href="/features"
-                  className=" text-base font-normal hover:opacity-70">
-                  Features
-                </Link>
-                <Link
-                  href="/pricing"
-                  className=" text-base font-normal hover:opacity-70">
-                  Pricing
-                </Link>
-              </nav>
-            ) : (
-              <HeaderSearch />
-            )}
+            <nav className=" flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2 z-10">
+              <Link
+                href="/"
+                className=" text-sm text-muted-foreground font-normal hover:text-secondary-foreground">
+                Home
+              </Link>
+              <Link
+                href="/features"
+                className=" text-sm text-muted-foreground font-normal hover:text-secondary-foreground">
+                Features
+              </Link>
+              <Link
+                href="/pricing"
+                className=" text-sm text-muted-foreground font-normal hover:text-secondary-foreground">
+                Pricing
+              </Link>
+            </nav>
 
-            {/* <div className="ml-auto"></div> */}
-            <HeaderOptions session={session} />
-
-            {/* <HeaderCta session={session} /> */}
+            <HeaderCta session={session} />
           </div>
         </header>
       )}

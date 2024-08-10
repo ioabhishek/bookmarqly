@@ -23,23 +23,7 @@ const UserHomepage: FC<UserHomepageProps> = ({ session }) => {
 
   return (
     <div>
-      {userDetailsQuery?.data?.data?.data ? (
-        <UserPage userDetails={userDetails} />
-      ) : (
-        <div className=" flex flex-col items-center justify-center h-full gap-5">
-          <h3 className=" text-3xl font-bold">User not found</h3>
-          <span className=" text-muted-foreground font-normal text-sm">
-            Make sure you typed the right username.
-          </span>
-          <Link
-            href="/"
-            className={`${buttonVariants({
-              variant: "default",
-            })} flex items-center gap-2 justify-center`}>
-            Go Home
-          </Link>
-        </div>
-      )}
+      <UserPage userDetails={userDetails} />
     </div>
   )
 }
