@@ -120,7 +120,7 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { title, description, thumbnail, isPublic } = validationResult.data
+  const { name, description, isPublic } = validationResult.data
 
   const user = await db.user.findUnique({
     where: {
@@ -137,7 +137,7 @@ export async function POST(req: NextRequest) {
 
   const collection = await db.collection.create({
     data: {
-      title: title,
+      name: name,
       description: description,
       isPublic: isPublic,
       userId: payload?.id,
