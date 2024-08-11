@@ -35,7 +35,7 @@ const AppHeader = () => {
   return (
     <>
       {pathname !== "/" &&
-        pathname !== "/login" &&
+        pathname !== "/signin" &&
         pathname !== "/onboarding" && (
           <div className="border-b h-16 px-4 flex items-center justify-between w-full bg-background sticky top-0 z-10">
             {/* <HeaderSearch /> */}

@@ -12,7 +12,7 @@ const SidebarChild: FC<SidebarChildProps> = ({ session }) => {
   return (
     <>
       {pathname !== "/" &&
-        pathname !== "/login" &&
+        pathname !== "/signin" &&
         pathname !== "/onboarding" && (
           <>{session?.user && <SidebarPage session={session} />}</>
         )}

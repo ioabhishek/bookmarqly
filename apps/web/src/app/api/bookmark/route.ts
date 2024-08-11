@@ -1,7 +1,8 @@
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { verifyToken } from "@/utils/jwtVerification"
 import { createBookmarkSchema, updateBookmarkSchema } from "@/utils/validations"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 const og = require("open-graph")
 
 async function fetchOpenGraphData(url: any) {
@@ -21,22 +22,16 @@ async function fetchOpenGraphData(url: any) {
 }
 
 // Get all bookmarks
-export async function GET(req: Request) {
-  const session = await auth()
+export async function GET(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "You must be logged in to view bookmarks",
-      },
-      { status: 401 }
-    )
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
   }
 
   const bookmarks = await db.bookmark.findMany({
     where: {
-      userId: session.user.id,
+      userId: payload?.id,
     },
   })
 
@@ -51,17 +46,11 @@ export async function GET(req: Request) {
 }
 
 // Create new bookmark
-export async function POST(req: Request) {
-  const session = await auth()
+export async function POST(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "You must be logged in to create bookmarks",
-      },
-      { status: 401 }
-    )
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
   }
 
   const jsonRequest = await req.json()
@@ -80,20 +69,20 @@ export async function POST(req: Request) {
     )
   }
 
-  const { title, url, note, collectionId } = validationResult.data
+  const { url, collectionId } = validationResult.data
 
-  const collection = await db.collection.findUnique({
-    where: {
-      id: collectionId,
-    },
-  })
+  // const collection = await db.collection.findUnique({
+  //   where: {
+  //     id: collectionId,
+  //   },
+  // })
 
-  if (!collection) {
-    return NextResponse.json(
-      { success: false, message: "Please create a collection first" },
-      { status: 404 }
-    )
-  }
+  // if (!collection) {
+  //   return NextResponse.json(
+  //     { success: false, message: "Please create a collection first" },
+  //     { status: 404 }
+  //   )
+  // }
 
   let ogData
   await (async () => {
@@ -109,11 +98,9 @@ export async function POST(req: Request) {
 
   const bookmark = await db.bookmark.create({
     data: {
-      title: title,
       url: url,
-      note: note,
       collectionId: collectionId,
-      userId: session.user.id,
+      userId: payload?.id,
       ogImage: ogData?.ogImage?.url,
       ogTitle: ogData?.ogTitle,
       ogDescription: ogData?.ogDescription,

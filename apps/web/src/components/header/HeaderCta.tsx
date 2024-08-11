@@ -23,10 +23,9 @@ const HeaderCta: FC<HeaderCtaProps> = ({ session }) => {
         </Link>
       ) : (
         <Link
-          href="/login"
-          className="flex items-center gap-2 text-sm font-medium">
+          href="/signin"
+          className="flex items-center gap-2 text-sm font-medium text-white dark:text-black bg-black dark:bg-white px-4 py-1.5 rounded-full">
           Sign In
-          <ArrowUpRight className="w-4 h-4" />
         </Link>
       )}
     </div>

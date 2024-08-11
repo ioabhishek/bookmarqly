@@ -2,7 +2,8 @@ import { verifyJWT } from "@/utils/token.utils"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function verifyToken(req: NextRequest) {
-  const token = req.cookies.get("accessToken")?.value
+  const token =
+    req.headers.get("Authorization") || req.cookies.get("accessToken")?.value
 
   if (!token) {
     return { error: "No access token found", status: 401 }

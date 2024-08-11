@@ -19,8 +19,8 @@ const HeaderChild: FC<HeaderChildProps> = ({ session }) => {
   return (
     <>
       {pathname === "/" && (
-        <header className="h-12 p-2 w-[60%] mx-auto bg-background/20 backdrop-blur-lg fixed top-6 z-50 border rounded-full left-1/2 transform -translate-x-1/2">
-          <div className="  flex items-center m-auto  relative justify-between">
+        <header className="h-12 p-2 w-[60%] flex items-center mx-auto bg-background/20 backdrop-blur-lg fixed top-6 z-50 border rounded-full left-1/2 transform -translate-x-1/2">
+          <div className="  flex items-center m-auto w-full relative justify-between">
             <Link href="/" className=" flex items-center gap-2 ml-4">
               <Icons.logo className="w-5 h-5 " />
               <span className=" text-lg font-semibold">Bookmarqly</span>

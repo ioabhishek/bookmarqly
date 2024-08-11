@@ -8,7 +8,7 @@ import {
 } from "@/utils/validations"
 import { verifyToken } from "@/utils/jwtVerification"
 
-// Get my or public collection list
+// Get my collection list
 export async function GET(req: NextRequest) {
   const { error, status, payload } = await verifyToken(req)
 
@@ -24,10 +24,9 @@ export async function GET(req: NextRequest) {
       id: true,
       name: true,
       description: true,
-      isPublic: true,
       _count: {
         select: {
-          bookmark: true,
+          bookmarks: true,
         },
       },
     },
@@ -67,7 +66,7 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { name, description, isPublic } = validationResult.data
+  const { name, description } = validationResult.data
 
   const user = await db.user.findUnique({
     where: {
@@ -86,7 +85,6 @@ export async function POST(req: NextRequest) {
     data: {
       name: name,
       description: description,
-      isPublic: isPublic,
       userId: payload?.id,
     },
   })

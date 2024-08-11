@@ -9,7 +9,7 @@ export const createCollectionSchema = z.object({
     message:
       "Description should not be empty or should have a minimum of 3 characters",
   }),
-  isPublic: z.boolean(),
+  // isPublic: z.boolean(),
 })
 
 export const updateCollectionSchema = z.object({
@@ -21,7 +21,7 @@ export const updateCollectionSchema = z.object({
     message:
       "Description should not be empty or should have a minimum of 3 characters",
   }),
-  isPublic: z.boolean(),
+  // isPublic: z.boolean(),
   collectionId: z
     .string()
     .min(1, { message: "Collection ID is either empty or it's not valid." }),
