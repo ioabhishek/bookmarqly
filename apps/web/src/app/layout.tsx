@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Header />
-          <div className="w-full h-screen">
+          <div className="w-full">
             <AppHeader />
             <div className="flex mt-16">
               <Sidebar />
