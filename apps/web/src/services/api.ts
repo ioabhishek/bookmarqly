@@ -60,7 +60,7 @@ export const userDetails = async () => {
 }
 
 export const getMyCollections = async () => {
-  return await axiosPublic.get(`${COLLECTION}?my=true`)
+  return await axiosPublic.get(`${COLLECTION}`)
 }
 
 export const getMyBookmarks = async () => {
@@ -80,7 +80,7 @@ export const updateCollectionPrivacy = async (data: any) => {
 }
 
 export const deleteCollection = async (collectionId: any) => {
-  return await axiosPublic.delete(`${COLLECTION}/${collectionId}`)
+  return await axiosPublic.delete(`${COLLECTION}?collectionId=${collectionId}`)
 }
 
 export const getSingleCollection = async (collectionId: any) => {

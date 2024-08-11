@@ -1,8 +1,9 @@
+import { BASE_URL } from "@/utils/Endpoints"
 import axios from "axios"
 import Cookies from "js-cookie"
 
 const axiosPublic = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: BASE_URL,
   withCredentials: true,
 })
 

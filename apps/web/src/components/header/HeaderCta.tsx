@@ -12,7 +12,7 @@ const HeaderCta: FC<HeaderCtaProps> = ({ session }) => {
   return (
     <div>
       {session?.user ? (
-        <Link href="/home" className=" flex items-center justify-center ">
+        <Link href="/bookmarks" className=" flex items-center justify-center ">
           <Image
             src={session?.user?.image}
             width={30}

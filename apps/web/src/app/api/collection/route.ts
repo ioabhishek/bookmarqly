@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
       data: collection,
       message: "Collection list fetched successfully",
     },
-    { status: 201 }
+    { status: 200 }
   )
 }
 

@@ -82,7 +82,7 @@ const CollectionShare: FC<CollectionShareProps> = ({ collectionId }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className=" flex items-center justify-center w-8 h-8 rounded-sm border border-white/30 cursor-pointer">
+        <div className=" flex items-center justify-center cursor-pointer">
           <Share className=" w-4 h-4" />
         </div>
       </DialogTrigger>

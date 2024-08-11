@@ -11,7 +11,7 @@ const GoogleLogin = async () => {
     <Button
       className="w-full"
       type="submit"
-      onClick={() => signIn("google", { callbackUrl: "/home" })}>
+      onClick={() => signIn("google", { callbackUrl: "/bookmarks" })}>
       <Image
         src="/google.png"
         width={18}

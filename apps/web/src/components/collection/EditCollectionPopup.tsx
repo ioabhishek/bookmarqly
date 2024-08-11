@@ -23,16 +23,20 @@ import Link from "next/link"
 import { Input } from "@repo/ui/components/input"
 import { Label } from "@repo/ui/components/label"
 import { UploadButton } from "@/utils/uploadthing"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@repo/ui/components/tooltip"
 
 interface EditCollectionPopupProps {
   collectionId: string
 }
 
 interface CollectionData {
-  title: string
+  name: string
   description: string
-  thumbnail: string
-  isPublic: boolean
   collectionId: string
 }
 
@@ -40,24 +44,22 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
   collectionId,
 }) => {
   const [open, setOpen] = useState(false)
-  const [imageUrl, setImageUrl] = useState("")
-  const [isSwitchOn, setIsSwitchOn] = useState(false)
-  const [isHidden, setIsHidden] = useState(true)
-  const [thumbnail, setThumbnail] = useState()
+  // const [imageUrl, setImageUrl] = useState("")
+  // const [isSwitchOn, setIsSwitchOn] = useState(false)
+  // const [isHidden, setIsHidden] = useState(true)
+  // const [thumbnail, setThumbnail] = useState()
   const [loading, setLoading] = useState(false)
 
   const form = useForm({
     defaultValues: async () => {
       const response = await axiosPublic.get(`${COLLECTION}/${collectionId}`)
       const data = response?.data?.data
-      setThumbnail(data?.thumbnail)
-      setIsSwitchOn(data?.isPublic)
+      // setThumbnail(data?.thumbnail)
+      // setIsSwitchOn(data?.isPublic)
 
       return {
-        title: data?.title,
+        name: data?.name,
         description: data?.description,
-        thumbnail: data?.thumbnail,
-        isPublic: data?.isPublic,
       }
     },
     mode: "onTouched",
@@ -71,10 +73,8 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
   const onSubmit = async (data: CollectionData) => {
     setLoading(true)
     const newCollection = {
-      title: data?.title,
+      name: data?.name,
       description: data?.description,
-      thumbnail: imageUrl || thumbnail,
-      isPublic: isSwitchOn,
       collectionId: collectionId,
     }
 
@@ -92,16 +92,21 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
     }
   }
 
-  const handleSwitchChange = () => {
-    setIsSwitchOn(!isSwitchOn)
-  }
+  // const handleSwitchChange = () => {
+  //   setIsSwitchOn(!isSwitchOn)
+  // }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className=" flex items-center justify-center w-8 h-8 rounded-sm border border-white/30 cursor-pointer">
-          <Edit className=" w-4 h-4" />
-        </div>
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger>
+              <Edit className=" w-4 h-4" />
+            </TooltipTrigger>
+            <TooltipContent>Edit collection</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </DialogTrigger>
       <DialogContent className="max-w-md gap-0 max-h-[90vh] overflow-y-scroll">
         <DialogHeader className="mb-6">
@@ -110,22 +115,22 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* title */}
           <div className="grid w-full items-center gap-1.5 mb-5">
-            <Label htmlFor="title" className="mb-2">
-              Title
+            <Label htmlFor="name" className="mb-2">
+              Collection name
             </Label>
             <Input
               type="text"
-              id="title"
-              {...register("title", {
+              id="name"
+              {...register("name", {
                 required: {
                   value: true,
                   message: "Title is required",
                 },
               })}
-              placeholder="Enter title"
+              placeholder="Enter collection name"
             />
-            {errors?.title?.message && (
-              <p className=" text-xs text-red-500">{errors?.title?.message}</p>
+            {errors?.name?.message && (
+              <p className=" text-xs text-red-500">{errors?.name?.message}</p>
             )}
           </div>
 
@@ -136,6 +141,7 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
             </Label>
             <Textarea
               id="description"
+              className="min-h-28"
               {...register("description", {
                 required: {
                   value: true,
@@ -152,7 +158,7 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
           </div>
 
           {/* thumbnail */}
-          <div className="grid w-full items-center gap-1.5 mb-6">
+          {/* <div className="grid w-full items-center gap-1.5 mb-6">
             <Label
               htmlFor="thumbnail"
               className="mb-2 flex items-center justify-between">
@@ -183,10 +189,10 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
                 <ExternalLink className=" min-w-4 h-4" />
               </Link>
             )}
-          </div>
+          </div> */}
 
           {/* privacy */}
-          <div className="grid w-full items-center gap-1.5 mb-6">
+          {/* <div className="grid w-full items-center gap-1.5 mb-6">
             <div className=" flex gap-8 items-start justify-between">
               <div className=" flex flex-col ">
                 <Label htmlFor="isPublic" className="mb-2">
@@ -194,8 +200,6 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
                 </Label>
                 <p className=" text-xs text-muted-foreground">
                   By turning this on, everyone with link can access.
-                  {/* By turning this on, you will be able to share this collection
-                  via link. */}
                 </p>
               </div>
               <Switch
@@ -203,7 +207,7 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
                 onCheckedChange={handleSwitchChange}
               />
             </div>
-          </div>
+          </div> */}
           <Button type="submit" className=" w-full">
             {loading ? "Updating collection..." : "Update collection"}
           </Button>

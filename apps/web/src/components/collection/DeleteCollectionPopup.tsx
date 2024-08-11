@@ -12,6 +12,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@repo/ui/components/alert-dialog"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@repo/ui/components/tooltip"
 import { Loader2, Trash2 } from "lucide-react"
 import { Button } from "@repo/ui/components/button"
 import { useDeleteCollection } from "@/services/mutations"
@@ -40,7 +46,7 @@ const DeleteCollectionPopup: FC<DeleteCollectionPopupProps> = ({
         setLoading(false)
         setOpen(false)
         // toast.success("Collection deleted successfully!")
-        router.push(`/`)
+        router.push(`/collections`)
       }
     } catch (error) {
       setLoading(false)
@@ -53,9 +59,14 @@ const DeleteCollectionPopup: FC<DeleteCollectionPopupProps> = ({
     <div>
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger>
-          <div className=" flex items-center justify-center w-8 h-8 rounded-sm border border-white/30 cursor-pointer">
-            <Trash2 className=" w-4 h-4" />
-          </div>
+          <TooltipProvider delayDuration={0}>
+            <Tooltip>
+              <TooltipTrigger>
+                <Trash2 className=" w-4 h-4" />
+              </TooltipTrigger>
+              <TooltipContent>Delete collection</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -68,11 +79,14 @@ const DeleteCollectionPopup: FC<DeleteCollectionPopupProps> = ({
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <Button onClick={handleDelete}>
-              {loading
-                ? `Deleting ${(<Loader2 className="animate-spin w-4 h-4 " />)}`
-                : "Delete"}
+              {loading ? (
+                <>
+                  Deleting <Loader2 className="animate-spin w-4 h-4 ml-2" />
+                </>
+              ) : (
+                "Delete"
+              )}
             </Button>
-            {/* <AlertDialogAction>Continue</AlertDialogAction> */}
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

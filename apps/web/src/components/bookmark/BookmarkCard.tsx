@@ -39,11 +39,6 @@ import AddTag from "./AddTag"
 import AddCollection from "./AddCollection"
 
 const BookmarkCard = ({ data }) => {
-  // console.log(data)
-
-  const date = parseISO(data?.createdAt)
-  // const formattedDate = format(date, "dd MMMM yyyy")
-
   const baseUrl = new URL(data?.url).origin.split("://")[1]
 
   return (

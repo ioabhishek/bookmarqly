@@ -8,6 +8,12 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@repo/ui/components/dialog"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@repo/ui/components/tooltip"
 import { Plus } from "lucide-react"
 import { useCreateBookmark } from "@/services/mutations"
 import { FC, useState } from "react"
@@ -36,10 +42,9 @@ const CreateBookmarkPopup: FC<CreateBookmarkProps> = ({ collectionId }) => {
 
   const onSubmit = async (data: BookmarkData) => {
     setLoading(true)
+
     const newBookmark = {
-      title: data?.title,
       url: data?.url,
-      note: data?.note,
       collectionId: collectionId,
     }
 
@@ -61,9 +66,14 @@ const CreateBookmarkPopup: FC<CreateBookmarkProps> = ({ collectionId }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className=" flex items-center justify-center w-8 h-8 rounded-sm border border-white/30 cursor-pointer">
-          <Plus className=" w-4 h-4" />
-        </div>
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger>
+              <Plus className=" w-4 h-4" />
+            </TooltipTrigger>
+            <TooltipContent>Create bookmark</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </DialogTrigger>
       <DialogContent className="max-w-md gap-0 max-h-[90vh] overflow-y-scroll">
         <DialogHeader className="mb-6">
