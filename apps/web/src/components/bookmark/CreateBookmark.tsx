@@ -38,11 +38,10 @@ const CreateBookmark: FC<CreateBookmarkProps> = () => {
 
   const onSubmit = async (data: BookmarkData) => {
     setLoading(true)
+
     const newBookmark = {
-      title: data?.title,
       url: data?.url,
-      note: data?.note,
-      collectionId: id,
+      // collectionId: id,
     }
 
     try {
@@ -62,12 +61,11 @@ const CreateBookmark: FC<CreateBookmarkProps> = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button className=" flex items-center gap-1">
-          New
-          <BookmarkPlus className=" w-4 h-4 " />
-        </Button>
+      <DialogTrigger className="flex items-center text-sm gap-1.5 bg-border px-3 h-9 rounded-full">
+        <BookmarkPlus className=" w-4 h-4" />
+        New
       </DialogTrigger>
+
       <DialogContent className="max-w-md gap-0 max-h-[90vh] overflow-y-scroll">
         <DialogHeader className="mb-6">
           <DialogTitle>Create Bookmark</DialogTitle>
@@ -116,12 +114,12 @@ const CreateBookmark: FC<CreateBookmarkProps> = () => {
           </div>
 
           {/* Select Collection */}
-          <div className="grid w-full items-center gap-1.5 mb-5">
+          {/* <div className="grid w-full items-center gap-1.5 mb-5">
             <Label htmlFor="url" className="mb-2">
               Collection
             </Label>
             <CollectionList id={id} setId={setId} />
-          </div>
+          </div> */}
 
           {/* note */}
           {/* <div className="grid w-full items-center gap-1.5 mb-6">

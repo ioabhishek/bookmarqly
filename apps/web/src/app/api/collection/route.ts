@@ -169,74 +169,6 @@ export async function PUT(req: NextRequest) {
   )
 }
 
-// Update collection privacy
-export async function PATCH(req: NextRequest) {
-  const { error, status, payload } = await verifyToken(req)
-
-  if (error) {
-    return NextResponse.json({ success: false, message: error })
-  }
-
-  const jsonRequest = await req.json()
-
-  const validationResult = updateCollectionPricacySchema.safeParse(jsonRequest)
-
-  if (!validationResult.success) {
-    const errors = validationResult.error.errors.map((err) => ({
-      path: err.path.join("."),
-      message: err.message,
-    }))
-
-    return NextResponse.json(
-      { success: false, message: "Validation error", errors: errors },
-      { status: 400 }
-    )
-  }
-
-  const { isPublic, collectionId } = validationResult.data
-
-  const isCollection = await db.collection.findUnique({
-    where: {
-      id: collectionId,
-    },
-  })
-
-  if (!isCollection) {
-    return NextResponse.json(
-      { success: false, message: "No Collection found" },
-      { status: 404 }
-    )
-  }
-
-  if (isCollection?.userId !== payload?.id) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "You are not authorized to update this collection",
-      },
-      { status: 403 }
-    )
-  }
-
-  const updateCollection = await db.collection.update({
-    where: {
-      id: collectionId,
-    },
-    data: {
-      isPublic: isPublic,
-    },
-  })
-
-  return NextResponse.json(
-    {
-      success: true,
-      data: updateCollection,
-      message: "Collection privacy updated successfully",
-    },
-    { status: 200 }
-  )
-}
-
 // Delete a collection
 export async function DELETE(req: NextRequest) {
   const { error, status, payload } = await verifyToken(req)
@@ -295,3 +227,71 @@ export async function DELETE(req: NextRequest) {
     { status: 200 }
   )
 }
+
+// Update collection privacy
+// export async function PATCH(req: NextRequest) {
+//   const { error, status, payload } = await verifyToken(req)
+
+//   if (error) {
+//     return NextResponse.json({ success: false, message: error })
+//   }
+
+//   const jsonRequest = await req.json()
+
+//   const validationResult = updateCollectionPricacySchema.safeParse(jsonRequest)
+
+//   if (!validationResult.success) {
+//     const errors = validationResult.error.errors.map((err) => ({
+//       path: err.path.join("."),
+//       message: err.message,
+//     }))
+
+//     return NextResponse.json(
+//       { success: false, message: "Validation error", errors: errors },
+//       { status: 400 }
+//     )
+//   }
+
+//   const { isPublic, collectionId } = validationResult.data
+
+//   const isCollection = await db.collection.findUnique({
+//     where: {
+//       id: collectionId,
+//     },
+//   })
+
+//   if (!isCollection) {
+//     return NextResponse.json(
+//       { success: false, message: "No Collection found" },
+//       { status: 404 }
+//     )
+//   }
+
+//   if (isCollection?.userId !== payload?.id) {
+//     return NextResponse.json(
+//       {
+//         success: false,
+//         message: "You are not authorized to update this collection",
+//       },
+//       { status: 403 }
+//     )
+//   }
+
+//   const updateCollection = await db.collection.update({
+//     where: {
+//       id: collectionId,
+//     },
+//     data: {
+//       isPublic: isPublic,
+//     },
+//   })
+
+//   return NextResponse.json(
+//     {
+//       success: true,
+//       data: updateCollection,
+//       message: "Collection privacy updated successfully",
+//     },
+//     { status: 200 }
+//   )
+// }

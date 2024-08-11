@@ -173,6 +173,9 @@ export function useCreateBookmark() {
         await queryClient.invalidateQueries({
           queryKey: ["singleCollection"],
         })
+        await queryClient.invalidateQueries({
+          queryKey: ["myBookmarks"],
+        })
       }
     },
   })
@@ -207,6 +210,9 @@ export function useDeleteBookmark() {
       } else {
         await queryClient.invalidateQueries({
           queryKey: ["singleCollection"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["myBookmarks"],
         })
       }
     },

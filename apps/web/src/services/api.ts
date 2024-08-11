@@ -64,7 +64,7 @@ export const getMyCollections = async () => {
 }
 
 export const getMyBookmarks = async () => {
-  return await axiosPublic.get(`${MY_BOOKMARKS}`)
+  return await axiosPublic.get(`${BOOKMARK}`)
 }
 
 export const createCollection = async (data: any) => {
@@ -96,5 +96,5 @@ export const updateBookmark = async (data: any) => {
 }
 
 export const deleteBookmark = async (bookmarkId: string) => {
-  return await axiosPublic.delete(`${BOOKMARK}/${bookmarkId}`)
+  return await axiosPublic.delete(`${BOOKMARK}?bookmarkId=${bookmarkId}`)
 }

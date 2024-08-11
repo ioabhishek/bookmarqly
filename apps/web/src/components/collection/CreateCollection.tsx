@@ -26,10 +26,8 @@ import { UploadButton } from "@/utils/uploadthing"
 interface EditCollectionPopupProps {}
 
 interface CollectionData {
-  title: string
+  name: string
   description: string
-  thumbnail: string
-  isPublic: boolean
 }
 
 const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
@@ -50,10 +48,8 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
   const onSubmit = async (data: CollectionData) => {
     setLoading(true)
     const newCollection = {
-      title: data?.title,
+      name: data?.name,
       description: data?.description,
-      thumbnail: imageUrl,
-      isPublic: isSwitchOn,
     }
 
     try {
@@ -88,25 +84,26 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
         <DialogHeader className="mb-6">
           <DialogTitle>Create Collection</DialogTitle>
         </DialogHeader>
+
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* title */}
+          {/* name */}
           <div className="grid w-full items-center gap-1.5 mb-5">
-            <Label htmlFor="title" className="mb-2">
-              Title
+            <Label htmlFor="name" className="mb-2">
+              Collection name
             </Label>
             <Input
               type="text"
-              id="title"
-              {...register("title", {
+              id="name"
+              {...register("name", {
                 required: {
                   value: true,
                   message: "Title is required",
                 },
               })}
-              placeholder="Enter title"
+              placeholder="Enter collection name"
             />
-            {errors?.title?.message && (
-              <p className=" text-xs text-red-500">{errors?.title?.message}</p>
+            {errors?.name?.message && (
+              <p className=" text-xs text-red-500">{errors?.name?.message}</p>
             )}
           </div>
 
@@ -165,7 +162,7 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
           </div> */}
 
           {/* privacy */}
-          <div className="grid w-full items-center gap-1.5 mb-6">
+          {/* <div className="grid w-full items-center gap-1.5 mb-6">
             <div className=" flex gap-8 items-start justify-between">
               <div className=" flex flex-col ">
                 <Label htmlFor="isPublic" className="mb-2">
@@ -173,8 +170,6 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
                 </Label>
                 <p className=" text-xs text-muted-foreground">
                   By turning this on, everyone with link can access.
-                  {/* By turning this on, you will be able to share this collection
-                  via link. */}
                 </p>
               </div>
               <Switch
@@ -182,7 +177,8 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
                 onCheckedChange={handleSwitchChange}
               />
             </div>
-          </div>
+          </div> */}
+
           <Button type="submit" className=" w-full">
             {loading ? "Creating collection..." : "Create Collection"}
           </Button>

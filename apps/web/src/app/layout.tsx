@@ -24,11 +24,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Header />
-          {/* <MainLayout>{children}</MainLayout> */}
-          <div className="flex w-full h-screen">
-            <Sidebar />
-            <div className="flex-1">
-              <AppHeader />
+          <div className="w-full h-screen">
+            <AppHeader />
+            <div className="flex mt-16">
+              <Sidebar />
               {children}
             </div>
           </div>

@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react"
 import { Icons } from "../asset/Icons"
 import {
   Archive,
+  ArrowRight,
   Bookmark,
   Download,
   Globe,
@@ -30,40 +31,24 @@ interface SidebarProps {
 }
 
 const SidebarPage: FC<SidebarProps> = ({ session }) => {
-  const { theme, setTheme } = useTheme()
   const pathname = usePathname()
-
-  const handleTheme = () => {
-    if (theme === "dark") {
-      setTheme("light")
-    } else {
-      setTheme("dark")
-    }
-  }
 
   const collectionsQuery = useMyCollection()
   const collections = collectionsQuery?.data?.data?.data
 
   return (
-    <aside className=" min-w-[280px] max-w-[280px] overflow-hidden flex flex-col border-r h-full z-20">
-      <Link
-        href="/"
-        className=" flex items-center gap-3 min-h-16 px-5 border-b">
-        <Icons.logo className="w-5 h-5 " />
-        <span className=" text-lg font-semibold">Bookmarqly</span>
-      </Link>
-
+    <aside className=" min-w-[280px] max-w-[280px] overflow-hidden flex flex-col h-[calc(100vh-64px)] sticky top-16 order-r z-20 border-r   ">
       <div className="py-6 px-5 flex-1 flex flex-col overflow-y-auto">
         {/* Main list */}
         <div className=" flex flex-col">
-          <Link
+          {/* <Link
             href="/home"
             className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/home" && "bg-border rounded-md"}`}>
             <div className=" flex items-center gap-3">
               <Home className=" w-5 h-5" />
               <span className=" text-sm">Home</span>
             </div>
-          </Link>
+          </Link> */}
           <Link
             href="/bookmarks"
             className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks" && "bg-border rounded-md"}`}>
@@ -146,30 +131,35 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
           </div>
 
           {/* collection list */}
-          <div className=" flex flex-col gap-3">
-            {collections?.map((collection: any) => (
+          <div className=" flex flex-col gap-3 mb-4">
+            {collections?.slice(0, 5).map((collection: any) => (
               <Link
                 key={collection?.id}
                 href={`/c/${collection?.id}`}
-                className="flex items-center justify-between">
+                className="flex items-center justify-between px-3">
                 <div className=" text-sm flex items-center gap-3 text-muted-foreground">
-                  {collection?.title}
+                  {collection?.name}
                 </div>
-                <span className=" text-xs text-muted-foreground">74</span>
               </Link>
             ))}
           </div>
+
+          <Link
+            href="/collections"
+            className=" text-xs flex font-normal items-center gap-1 ml-3 px-2 py-1 bg-blue-600 rounded-full w-fit">
+            View all
+            <ArrowRight className="w-3 h-3" />
+          </Link>
         </div>
 
-        <Separator className="my-5" />
+        {/* <Separator className="my-5" /> */}
 
         {/* Tags */}
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <span className=" text-sm md:text-base font-normal text-muted-foreground px-3">
             Tags
           </span>
 
-          {/* collection list */}
           <div className=" flex flex-col gap-3">
             {collections?.map((collection: any) => (
               <Link
@@ -183,15 +173,9 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
               </Link>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <div className="flex-1"></div>
-        <div
-          className="flex items-center justify-center cursor-pointer border p-1 gap-1 rounded-full w-fit "
-          onClick={handleTheme}>
-          {theme === "dark" && <Sun className=" w-4 h-4" />}
-          {theme === "light" && <Moon className="w-4 h-4" />}
-        </div>
 
         {/* <Link
         href="/explore"
