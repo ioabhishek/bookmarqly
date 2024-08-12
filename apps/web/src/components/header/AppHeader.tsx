@@ -119,7 +119,7 @@ const AppHeader = () => {
                     </DropdownMenu>
                   ) : (
                     <Link
-                      href="/login"
+                      href="/signin"
                       className={buttonVariants({ variant: "default" })}>
                       Login
                     </Link>

@@ -14,7 +14,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@repo/ui/components/tooltip"
-import { Plus } from "lucide-react"
+import { Loader2, Plus } from "lucide-react"
 import { useCreateBookmark } from "@/services/mutations"
 import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -134,7 +134,13 @@ const CreateBookmarkPopup: FC<CreateBookmarkProps> = ({ collectionId }) => {
             />
           </div> */}
           <Button type="submit" className=" w-full">
-            {loading ? "Creating bookmark..." : "Create bookmark"}
+            {loading ? (
+              <>
+                Creating <Loader2 className="animate-spin w-4 h-4 ml-2" />
+              </>
+            ) : (
+              "Create"
+            )}
           </Button>
         </form>
       </DialogContent>

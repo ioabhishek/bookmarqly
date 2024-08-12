@@ -12,7 +12,7 @@ interface ArchiveAddProps {}
 
 const ArchiveAdd: FC<ArchiveAddProps> = ({}) => {
   return (
-    <div>
+    <div className=" flex items-center justify-center">
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger>

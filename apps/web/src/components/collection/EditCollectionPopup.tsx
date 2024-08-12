@@ -10,7 +10,7 @@ import {
 } from "@repo/ui/components/dialog"
 // import { toast } from "sonner"
 import { Button } from "@repo/ui/components/button"
-import { Edit, ExternalLink, Plus } from "lucide-react"
+import { Edit, ExternalLink, Loader2, Plus } from "lucide-react"
 import { useCreateBookmark, useUpdateCollection } from "@/services/mutations"
 import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -147,6 +147,10 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
                   value: true,
                   message: "Description is required",
                 },
+                maxLength: {
+                  value: 400,
+                  message: "Description cannot exceed 200 characters",
+                },
               })}
               placeholder="Enter description"
             />
@@ -209,7 +213,13 @@ const EditCollectionPopup: FC<EditCollectionPopupProps> = ({
             </div>
           </div> */}
           <Button type="submit" className=" w-full">
-            {loading ? "Updating collection..." : "Update collection"}
+            {loading ? (
+              <>
+                Updating <Loader2 className="animate-spin w-4 h-4 ml-2" />
+              </>
+            ) : (
+              "Update"
+            )}
           </Button>
         </form>
       </DialogContent>

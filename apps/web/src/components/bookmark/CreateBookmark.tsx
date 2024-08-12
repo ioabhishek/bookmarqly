@@ -8,7 +8,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@repo/ui/components/dialog"
-import { BookmarkPlus, Plus } from "lucide-react"
+import { BookmarkPlus, Loader2, Plus } from "lucide-react"
 import { useCreateBookmark } from "@/services/mutations"
 import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -133,7 +133,13 @@ const CreateBookmark: FC<CreateBookmarkProps> = () => {
             />
           </div> */}
           <Button type="submit" className="w-full">
-            {loading ? "Creating bookmark..." : "Create bookmark"}
+            {loading ? (
+              <>
+                Creating <Loader2 className="animate-spin w-4 h-4 ml-2" />
+              </>
+            ) : (
+              "Create"
+            )}
           </Button>
         </form>
       </DialogContent>

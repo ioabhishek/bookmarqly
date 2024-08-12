@@ -12,7 +12,14 @@ import Link from "next/link"
 import Image from "next/image"
 // import { toast } from "sonner"
 import { Button } from "@repo/ui/components/button"
-import { Copy, Edit, ExternalLink, Plus, PlusCircle } from "lucide-react"
+import {
+  Copy,
+  Edit,
+  ExternalLink,
+  Loader2,
+  Plus,
+  PlusCircle,
+} from "lucide-react"
 import { useCreateBookmark, useCreateCollection } from "@/services/mutations"
 import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -22,15 +29,23 @@ import { usePathname } from "next/navigation"
 import { Input } from "@repo/ui/components/input"
 import { Label } from "@repo/ui/components/label"
 import { UploadButton } from "@/utils/uploadthing"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@repo/ui/components/tooltip"
 
-interface EditCollectionPopupProps {}
+interface EditCollectionPopupProps {
+  titleText: string
+}
 
 interface CollectionData {
   name: string
   description: string
 }
 
-const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
+const CreateCollection: FC<EditCollectionPopupProps> = ({ titleText }) => {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [imageUrl, setImageUrl] = useState("")
@@ -57,7 +72,7 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
       if (response?.data?.success) {
         setLoading(false)
         setOpen(false)
-        reset({ title: "", description: "" })
+        reset({ name: "", description: "" })
         // toast.success(response?.data?.message)
       }
     } catch (error) {
@@ -78,11 +93,19 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Plus className=" w-5 h-5" />
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger className=" flex items-center gap-2">
+              <Plus className=" w-5 h-5 mt-1" />
+              {titleText}
+            </TooltipTrigger>
+            <TooltipContent>Create collection</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </DialogTrigger>
       <DialogContent className="max-w-md gap-0 max-h-[90vh] overflow-y-scroll">
         <DialogHeader className="mb-6">
-          <DialogTitle>Create Collection</DialogTitle>
+          <DialogTitle>Create collection</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -114,10 +137,15 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
             </Label>
             <Textarea
               id="description"
+              className="min-h-28"
               {...register("description", {
                 required: {
                   value: true,
                   message: "Description is required",
+                },
+                maxLength: {
+                  value: 400,
+                  message: "Description cannot exceed 200 characters",
                 },
               })}
               placeholder="Enter description"
@@ -180,7 +208,14 @@ const CreateCollection: FC<EditCollectionPopupProps> = ({}) => {
           </div> */}
 
           <Button type="submit" className=" w-full">
-            {loading ? "Creating collection..." : "Create Collection"}
+            {/* {loading ? "Creating collection..." : "Create Collection"} */}
+            {loading ? (
+              <>
+                Creating <Loader2 className="animate-spin w-4 h-4 ml-2" />
+              </>
+            ) : (
+              "Create"
+            )}
           </Button>
         </form>
       </DialogContent>

@@ -21,6 +21,7 @@ import {
 import { FC, useState } from "react"
 import { Separator } from "@repo/ui/components/separator"
 import CollectionCard from "@/components/collection/CollectionCard"
+import CreateCollection from "@/components/collection/CreateCollection"
 
 interface pageProps {}
 
@@ -37,23 +38,26 @@ const page: FC<pageProps> = ({}) => {
         <div className=" flex justify-between items-center mb-5">
           <h2 className=" text-2xl font-semibold">All Collections</h2>
 
-          <div className="ml-6">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center justify-center">
-                <ArrowUpNarrowWide className="w-6 h-6" />
-              </DropdownMenuTrigger>
+          <div className=" flex items-center gap-4">
+            <CreateCollection titleText="Create collection" />
+            <div className="ml-6">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center justify-center">
+                  <ArrowUpNarrowWide className="w-6 h-6" />
+                </DropdownMenuTrigger>
 
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem className="flex items-center gap-1">
-                  <ArrowDownWideNarrow className="w-5 h-5" />
-                  Oldest first
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-1">
-                  <ArrowUpNarrowWide className="w-5 h-5" />
-                  Newest first
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem className="flex items-center gap-1">
+                    <ArrowDownWideNarrow className="w-5 h-5" />
+                    Oldest first
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center gap-1">
+                    <ArrowUpNarrowWide className="w-5 h-5" />
+                    Newest first
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </div>
         <Separator className="mt-4 mb-8" />

@@ -12,7 +12,7 @@ interface FavoriteAddProps {}
 
 const FavoriteAdd: FC<FavoriteAddProps> = ({}) => {
   return (
-    <div>
+    <div className=" flex items-center justify-center">
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger>

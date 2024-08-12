@@ -4,7 +4,7 @@ import GoogleLogin from "@/components/auth/GoogleLogin"
 
 const page = () => {
   return (
-    <div className="w-full md:grid md:grid-cols-2 h-[100vh]">
+    <div className="w-full md:grid md:grid-cols-2 h-[100vh] mt-[-64px]">
       <div className="hidden bg-muted md:flex justify-center items-center">
         <Link href="/" className=" flex items-center gap-3">
           <Icons.logo className="w-7 h-7 animate-bounce" />

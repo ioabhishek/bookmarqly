@@ -12,7 +12,7 @@ interface AddCollectionProps {}
 
 const AddCollection: FC<AddCollectionProps> = ({}) => {
   return (
-    <div>
+    <div className=" flex items-center justify-center">
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger>

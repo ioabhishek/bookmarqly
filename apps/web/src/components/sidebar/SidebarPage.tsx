@@ -37,7 +37,7 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
   const collections = collectionsQuery?.data?.data?.data
 
   return (
-    <aside className=" min-w-[280px] max-w-[280px] overflow-hidden flex flex-col h-[calc(100vh-64px)] sticky top-16 order-r z-20 border-r   ">
+    <aside className=" min-w-[280px] max-w-[280px] overflow-hidden flex flex-col h-[calc(100vh-64px)] sticky top-16 order-r z-20 border-r">
       <div className="py-6 px-5 flex-1 flex flex-col overflow-y-auto">
         {/* Main list */}
         <div className=" flex flex-col">

@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@repo/ui/components/alert-dialog"
-import { Trash2 } from "lucide-react"
+import { Loader2, Trash2 } from "lucide-react"
 import { useDeleteBookmark } from "@/services/mutations"
 // import { toast } from "sonner"
 import {
@@ -74,9 +74,14 @@ const DeleteBookmark: FC<DeleteBookmarkProps> = ({ bookmarkId }) => {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <Button onClick={handleDelete}>
-              {loading ? "Deleting..." : "Delete"}
+              {loading ? (
+                <>
+                  Deleting <Loader2 className="animate-spin w-4 h-4 ml-2" />
+                </>
+              ) : (
+                "Delete"
+              )}
             </Button>
-            {/* <AlertDialogAction>Continue</AlertDialogAction> */}
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

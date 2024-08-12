@@ -65,11 +65,11 @@ const BookmarkCard = ({ data }) => {
         {data?.note ? data?.note : data?.ogDescription}
       </p>
 
-      <div className="relative z-30 grid grid-cols-5 gap-4">
+      <div className="relative z-30 grid grid-cols-4 gap-4">
         <AddCollection />
         <FavoriteAdd />
         <ArchiveAdd />
-        <AddTag />
+        {/* <AddTag /> */}
         {/* <EditBookmark bookmarkId={data?.id} /> */}
         <DeleteBookmark bookmarkId={data?.id} />
       </div>

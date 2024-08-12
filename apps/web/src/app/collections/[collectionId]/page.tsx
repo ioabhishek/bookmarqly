@@ -46,8 +46,10 @@ const page = () => {
         {/* Page Title & Actions */}
         <div>
           <div className=" mb-4">
-            <h2 className=" text-2xl font-semibold mb-1">{collection?.name}</h2>
-            <p className=" text-muted-foreground text-sm font-normal">
+            <h2 className=" text-2xl font-semibold mb-1 min-h-[calc(1*32px)] max-h-[calc(1*32px)] overflow-hidden">
+              {collection?.name}
+            </h2>
+            <p className=" text-muted-foreground text-sm font-normal min-h-[calc(2*20px)] max-h-[calc(2*20px)] overflow-hidden">
               {collection?.description}
             </p>
           </div>
