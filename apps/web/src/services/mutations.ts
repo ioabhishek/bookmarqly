@@ -229,10 +229,10 @@ export function useFavoriteBookmark() {
         console.log(error)
       } else {
         await queryClient.invalidateQueries({
-          queryKey: ["singleCollection"],
+          queryKey: ["myBookmarks"],
         })
         await queryClient.invalidateQueries({
-          queryKey: ["myBookmarks"],
+          queryKey: ["favoriteBookmarks"],
         })
       }
     },
