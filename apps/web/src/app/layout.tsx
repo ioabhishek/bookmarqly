@@ -26,7 +26,7 @@ export default function RootLayout({
           <Header />
           <div className="w-full">
             <AppHeader />
-            <div className="flex mt-16">
+            <div className="flex mt-12 md:mt-16">
               <Sidebar />
               {children}
             </div>

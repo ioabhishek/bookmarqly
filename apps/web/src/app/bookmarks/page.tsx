@@ -35,10 +35,10 @@ const page = () => {
   }
 
   return (
-    <div className="w-full h-[calc(100%-64px)] flex flex-col">
-      <div className="py-6 px-8">
+    <div className="w-full h-[calc(100%-48px)] md:h-[calc(100%-64px)] flex flex-col">
+      <div className="py-4 px-3 md:py-6 md:px-8">
         {/* Title and filter */}
-        <div className=" flex justify-between items-center mb-5">
+        <div className=" flex justify-between items-center mb-3 md:mb-5">
           <h2 className=" text-2xl font-semibold">Bookmarks</h2>
 
           <div className="ml-6">
@@ -68,10 +68,11 @@ const page = () => {
             </DropdownMenu>
           </div>
         </div>
-        <Separator className="mt-4 mb-8" />
+        <Separator className="mt-3 md:mt-4 mb-3 md:mb-8" />
 
         {/* Bookmark list */}
-        <div className={`${layoutType} grid-cols-4 flex-col gap-5 pt-0`}>
+        <div
+          className={`${layoutType} grid-cols-1 md:grid-cols-4 flex-col gap-3 md:gap-5 pt-0`}>
           {myBookmarks?.map((bookmark, index) => (
             <BookmarkCard key={index} data={bookmark} />
           ))}

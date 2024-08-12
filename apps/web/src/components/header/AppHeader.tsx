@@ -50,12 +50,12 @@ const AppHeader = () => {
       {pathname !== "/" &&
         pathname !== "/signin" &&
         pathname !== "/onboarding" && (
-          <header className=" border-b h-16 px-4 w-full bg-background fixed top-0 z-40">
-            <div className="flex items-center justify-between">
+          <header className=" border-b px-3 md:px-4 w-full bg-background fixed top-0 z-40">
+            <div className="h-12 md:h-16 flex items-center justify-between gap-3">
               <Link
                 href="/home"
-                className=" flex items-center gap-3 min-h-16 px-5 border-b">
-                <Icons.logo className="w-5 h-5 " />
+                className=" flex items-center gap-2 md:gap-3 md:px-5">
+                <Icons.logo className=" w-4 h-4 md:w-5 md:h-5 " />
                 <span className=" text-lg font-semibold">Bookmarqly</span>
               </Link>
 
@@ -65,7 +65,7 @@ const AppHeader = () => {
                 {session?.user && <CreateBookmark />}
 
                 <div
-                  className="flex items-center justify-center cursor-pointer h-9 w-9 bg-border rounded-full"
+                  className="flex items-center justify-center cursor-pointer h-4 w-4 md:h-9 md:w-9 md:bg-border md:rounded-full"
                   onClick={handleTheme}>
                   {theme === "dark" && <Sun className=" w-4 h-4" />}
                   {theme === "light" && <Moon className="w-4 h-4" />}
@@ -75,7 +75,7 @@ const AppHeader = () => {
                   {session?.user ? (
                     <DropdownMenu>
                       <DropdownMenuTrigger className=" rounded-full relative">
-                        <Avatar className=" w-9 h-9 border shadow-sm">
+                        <Avatar className=" w-7 h-7 md:w-9 md:h-9 border shadow-sm">
                           <AvatarImage
                             src={
                               session?.user?.image

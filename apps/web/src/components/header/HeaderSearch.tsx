@@ -7,7 +7,7 @@ interface HeaderSearchProps {}
 
 const HeaderSearch: FC<HeaderSearchProps> = ({}) => {
   return (
-    <div className="cursor-pointer md:h-auto relative flex items-center justify-center rounded-md gap-2 min-w-[30%] max-w-[25%]">
+    <div className="cursor-pointer md:h-auto relative flex items-center justify-center rounded-md gap-2 md:min-w-[30%] md:max-w-[25%] ml-auto md:ml-0">
       <Search className=" md:absolute md:left-3 md:top-1/2 md:transform md:-translate-y-1/2 h-4 w-4 text-secondary-foreground md:stroke-muted-foreground" />
       <Input
         placeholder="Search for collection or links..."
