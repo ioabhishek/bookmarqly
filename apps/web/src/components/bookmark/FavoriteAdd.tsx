@@ -15,8 +15,6 @@ interface FavoriteAddProps {
 }
 
 const FavoriteAdd: FC<FavoriteAddProps> = ({ favorite, bookmarkId }) => {
-  const [isFavorite, setIsFavorite] = useState(favorite)
-
   const favoriteQuery = useFavoriteBookmark()
 
   const payload = {
@@ -25,7 +23,6 @@ const FavoriteAdd: FC<FavoriteAddProps> = ({ favorite, bookmarkId }) => {
   }
 
   const handleFavorite = async () => {
-    setIsFavorite(!isFavorite)
     await favoriteQuery.mutateAsync(payload)
   }
 

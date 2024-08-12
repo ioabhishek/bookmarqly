@@ -61,21 +61,38 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, message: error })
   }
 
-  const { bookmarkId, favorite } = await req.json()
+  const { bookmarkId, favorite, archive } = await req.json()
 
-  await db.bookmark.update({
-    where: { id: bookmarkId },
-    data: {
-      favorite,
-    },
-  })
+  if (favorite) {
+    await db.bookmark.update({
+      where: { id: bookmarkId },
+      data: {
+        favorite,
+      },
+    })
 
-  return NextResponse.json(
-    {
-      success: true,
-      message:
-        favorite === true ? "Added to favorites" : "Removed from favorites",
-    },
-    { status: 200 }
-  )
+    return NextResponse.json(
+      {
+        success: true,
+        message:
+          favorite === true ? "Added to favorites" : "Removed from favorites",
+      },
+      { status: 200 }
+    )
+  } else {
+    await db.bookmark.update({
+      where: { id: bookmarkId },
+      data: {
+        archive,
+      },
+    })
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: archive === true ? "Moved to archive" : "Removed from Archive",
+      },
+      { status: 200 }
+    )
+  }
 }

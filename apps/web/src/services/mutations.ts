@@ -234,6 +234,9 @@ export function useFavoriteBookmark() {
         await queryClient.invalidateQueries({
           queryKey: ["favoriteBookmarks"],
         })
+        await queryClient.invalidateQueries({
+          queryKey: ["archiveBookmarks"],
+        })
       }
     },
   })

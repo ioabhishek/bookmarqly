@@ -31,11 +31,14 @@ export async function GET(req: NextRequest) {
 
   const url = new URL(req.url)
   const favorites = url.searchParams.get("favorites")
+  const archive = url.searchParams.get("archive")
 
   const bookmarks = await db.bookmark.findMany({
     where: {
       userId: payload?.id,
+      archive: archive === "true" ? true : false,
       ...(favorites === "true" && { favorite: true }),
+      // ...(archive === "true" && { archive: true }),
     },
     orderBy: {
       createdAt: "desc",

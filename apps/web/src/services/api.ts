@@ -71,6 +71,10 @@ export const getFavoriteBookmarks = async () => {
   return await axiosPublic.get(`${BOOKMARK}?favorites=true`)
 }
 
+export const getArchiveBookmarks = async () => {
+  return await axiosPublic.get(`${BOOKMARK}?archive=true`)
+}
+
 export const createCollection = async (data: any) => {
   return await axiosPublic.post(`${COLLECTION}`, data)
 }

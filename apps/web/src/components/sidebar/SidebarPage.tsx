@@ -75,6 +75,14 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
               <span className=" text-sm">Highlights</span>
             </div>
           </Link>
+          <Link
+            href="/highlights"
+            className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/highlights" && "bg-border rounded-md"}`}>
+            <div className=" flex items-center gap-3">
+              <Highlighter className=" w-5 h-5" />
+              <span className=" text-sm">Youtube</span>
+            </div>
+          </Link>
         </div>
 
         <Separator className="my-5" />
@@ -156,7 +164,7 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
 
           <Link
             href="/collections"
-            className=" text-xs flex font-normal items-center gap-1 ml-3 px-2 py-1 bg-blue-600 rounded-full w-fit">
+            className=" text-xs flex font-normal items-center gap-1 ml-3 px-3 py-1 border border-blue-600 rounded-full w-fit">
             View all
             <ArrowRight className="w-3 h-3" />
           </Link>
