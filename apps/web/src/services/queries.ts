@@ -37,10 +37,10 @@ export function useArchiveBookmarks(data: any) {
   })
 }
 
-export function useSingleCollection(collectionId: any) {
+export function useSingleCollection(payload: any) {
   return useQuery({
     queryKey: ["singleCollection"],
-    queryFn: () => getSingleCollection(collectionId),
+    queryFn: () => getSingleCollection(payload),
   })
 }
 

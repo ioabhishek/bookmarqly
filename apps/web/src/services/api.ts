@@ -33,8 +33,10 @@ export const deleteCollection = async (collectionId: any) => {
   return await axiosPublic.delete(`${COLLECTION}?collectionId=${collectionId}`)
 }
 
-export const getSingleCollection = async (collectionId: any) => {
-  return await axiosPublic.get(`${COLLECTION}/${collectionId}`)
+export const getSingleCollection = async (payload: any) => {
+  return await axiosPublic.get(
+    `${COLLECTION}/${payload?.collectionId}?sortby=${payload?.sortBy}`
+  )
 }
 
 export const createBookmark = async (data: any) => {

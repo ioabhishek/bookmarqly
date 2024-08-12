@@ -14,6 +14,7 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.url)
   const pathname = url.pathname
   const parts = pathname.split("/")
+  const sortby = url.searchParams.get("sortby")
 
   const id = parts[parts.length - 1]
 
@@ -34,6 +35,9 @@ export async function GET(req: NextRequest) {
           ogTitle: true,
           ogDescription: true,
           favorite: true,
+        },
+        orderBy: {
+          createdAt: sortby === "asc" ? "asc" : "desc",
         },
       },
     },
