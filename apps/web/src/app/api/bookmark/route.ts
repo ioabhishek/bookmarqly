@@ -29,9 +29,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ success: false, message: error })
   }
 
+  const url = new URL(req.url)
+  const favorites = url.searchParams.get("favorites")
+
   const bookmarks = await db.bookmark.findMany({
     where: {
       userId: payload?.id,
+      ...(favorites === "true" && { favorite: true }),
     },
   })
 
@@ -80,8 +84,6 @@ export async function POST(req: NextRequest) {
       console.error("Error:", error)
     }
   })()
-
-  console.log("og data is", ogData)
 
   let bookmarkPayload = {
     url: url,

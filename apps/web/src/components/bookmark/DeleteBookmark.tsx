@@ -51,7 +51,7 @@ const DeleteBookmark: FC<DeleteBookmarkProps> = ({ bookmarkId }) => {
   return (
     <div>
       <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger>
+        <AlertDialogTrigger className="flex items-center justify-center mx-auto">
           <TooltipProvider delayDuration={0}>
             <Tooltip>
               <TooltipTrigger>
@@ -63,6 +63,7 @@ const DeleteBookmark: FC<DeleteBookmarkProps> = ({ bookmarkId }) => {
             </Tooltip>
           </TooltipProvider>
         </AlertDialogTrigger>
+
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

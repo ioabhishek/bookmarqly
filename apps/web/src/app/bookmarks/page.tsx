@@ -32,7 +32,7 @@ const page = () => {
       <div className="py-6 px-8">
         {/* Title and filter */}
         <div className=" flex justify-between items-center mb-5">
-          <h2 className=" text-2xl font-semibold">All Bookmarks</h2>
+          <h2 className=" text-2xl font-semibold">Bookmarks</h2>
 
           <div className="ml-6">
             <DropdownMenu>

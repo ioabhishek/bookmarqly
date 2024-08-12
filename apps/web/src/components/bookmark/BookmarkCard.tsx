@@ -62,17 +62,16 @@ const BookmarkCard = ({ data }) => {
         {data?.title ? data?.title : data?.ogTitle}
       </h2>
 
-      <p className=" text-xs text-muted-foreground min-h-[calc(2*16px)] max-h-[calc(2*16px)] overflow-hidden mb-4">
+      <p className=" text-xs text-muted-foreground min-h-[calc(2*16px)] max-h-[calc(2*16px)] overflow-hidden mb-3">
         {data?.note ? data?.note : data?.ogDescription}
       </p>
 
-      <div className="relative z-30 grid grid-cols-4 gap-4">
+      <div className="relative z-30 grid grid-cols-4 gap-4 mb-1">
         <AddToCollection bookmarkId={data?.id} />
-        <FavoriteAdd />
+        <FavoriteAdd favorite={data?.favorite} bookmarkId={data?.id} />
         <ArchiveAdd />
-        {/* <AddTag /> */}
-        {/* <EditBookmark bookmarkId={data?.id} /> */}
         <DeleteBookmark bookmarkId={data?.id} />
+        {/* <AddTag /> */}
       </div>
 
       <Link

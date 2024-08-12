@@ -55,7 +55,6 @@ model User {
   collections   Collection[]
   bookmarks     Bookmark[]
   archives      Archive[]
-  favorites     Favorite[]
   highlights    Highlight[]
   notes         Note[]
   tags          Tag[]
@@ -84,30 +83,19 @@ model Archive {
   updatedAt DateTime   @updatedAt
 }
 
-model Favorite {
-  id        String     @id @default(cuid())
-  title     String
-  user      User       @relation(fields: [userId], references: [id])
-  userId    String
-  bookmarks Bookmark[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-}
-
 model Bookmark {
   id            String        @id @default(cuid())
   url           String
   ogImage       String?
   ogTitle       String?
   ogDescription String?
+  favorite      Boolean?
   user          User          @relation(fields: [userId], references: [id])
   userId        String
   collection    Collection?   @relation(fields: [collectionId], references: [id])
   collectionId  String?
   archive       Archive?      @relation(fields: [archiveId], references: [id])
   archiveId     String?
-  favorite      Favorite?     @relation(fields: [favoriteId], references: [id])
-  favoriteId    String?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   bookmarksTags BookmarkTag[]

@@ -36,7 +36,7 @@ const page: FC<pageProps> = ({}) => {
       <div className="py-6 px-8">
         {/* Title and filter */}
         <div className=" flex justify-between items-center mb-5">
-          <h2 className=" text-2xl font-semibold">All Collections</h2>
+          <h2 className=" text-2xl font-semibold">Collections</h2>
 
           <div className=" flex items-center gap-4">
             <CreateCollection titleText="Create collection" />

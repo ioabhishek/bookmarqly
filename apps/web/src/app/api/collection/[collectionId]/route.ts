@@ -33,12 +33,11 @@ export async function GET(req: NextRequest) {
           ogImage: true,
           ogTitle: true,
           ogDescription: true,
+          favorite: true,
         },
       },
     },
   })
-
-  console.log("single collection", collection)
 
   if (payload?.id === collection?.userId) {
     return NextResponse.json(

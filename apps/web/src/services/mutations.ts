@@ -4,6 +4,7 @@ import {
   createCollection,
   deleteBookmark,
   deleteCollection,
+  favoriteBookmark,
   forgotPassword,
   login,
   logout,
@@ -204,6 +205,25 @@ export function useDeleteBookmark() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (bookmarkId) => deleteBookmark(bookmarkId),
+    onSettled: async (_, error) => {
+      if (error) {
+        console.log(error)
+      } else {
+        await queryClient.invalidateQueries({
+          queryKey: ["singleCollection"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["myBookmarks"],
+        })
+      }
+    },
+  })
+}
+
+export function useFavoriteBookmark() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data) => favoriteBookmark(data),
     onSettled: async (_, error) => {
       if (error) {
         console.log(error)

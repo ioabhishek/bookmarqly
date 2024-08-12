@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
   checkUsername,
   getCurrentUser,
+  getFavoriteBookmarks,
   getMyBookmarks,
   getMyCollections,
   getSingleCollection,
@@ -63,6 +64,13 @@ export function useMyBookmarks() {
   return useQuery({
     queryKey: ["myBookmarks"],
     queryFn: () => getMyBookmarks(),
+  })
+}
+
+export function useFavoriteBookmarks() {
+  return useQuery({
+    queryKey: ["favoriteBookmarks"],
+    queryFn: () => getFavoriteBookmarks(),
   })
 }
 

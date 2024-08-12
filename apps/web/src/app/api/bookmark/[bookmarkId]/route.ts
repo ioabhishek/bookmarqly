@@ -1,10 +1,15 @@
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { NextResponse } from "next/server"
+import { verifyToken } from "@/utils/jwtVerification"
+import { NextRequest, NextResponse } from "next/server"
 
 // Bookmark details
-export async function GET(req: Request) {
-  const session = await auth()
+export async function GET(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
+
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
+  }
 
   const url = new URL(req.url)
   const pathname = url.pathname
@@ -18,7 +23,7 @@ export async function GET(req: Request) {
     },
   })
 
-  if (session?.user?.id === bookmark?.userId) {
+  if (payload?.id === bookmark?.userId) {
     if (!bookmark) {
       return NextResponse.json(
         {
@@ -46,4 +51,31 @@ export async function GET(req: Request) {
       { status: 401 }
     )
   }
+}
+
+// Add/Remove Favorites
+export async function POST(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
+
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
+  }
+
+  const { bookmarkId, favorite } = await req.json()
+
+  await db.bookmark.update({
+    where: { id: bookmarkId },
+    data: {
+      favorite,
+    },
+  })
+
+  return NextResponse.json(
+    {
+      success: true,
+      message:
+        favorite === true ? "Added to favorites" : "Removed from favorites",
+    },
+    { status: 200 }
+  )
 }
