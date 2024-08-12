@@ -34,11 +34,31 @@ export async function GET(req: NextRequest) {
   const archive = url.searchParams.get("archive")
   const sortby = url.searchParams.get("sortby")
 
+  if (favorites === "true") {
+    const bookmarks = await db.bookmark.findMany({
+      where: {
+        userId: payload?.id,
+        favorite: true,
+      },
+      orderBy: {
+        createdAt: sortby === "asc" ? "asc" : "desc",
+      },
+    })
+
+    return NextResponse.json(
+      {
+        success: true,
+        data: bookmarks,
+        message: "Bookmarks fetched successfully",
+      },
+      { status: 200 }
+    )
+  }
+
   const bookmarks = await db.bookmark.findMany({
     where: {
       userId: payload?.id,
       archive: archive === "true" ? true : false,
-      ...(favorites === "true" && { favorite: true }),
     },
     orderBy: {
       createdAt: sortby === "asc" ? "asc" : "desc",

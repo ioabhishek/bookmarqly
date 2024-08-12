@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import {
+  archiveBookmark,
   createBookmark,
   createCollection,
   deleteBookmark,
@@ -172,6 +173,25 @@ export function useFavoriteBookmark() {
         })
         await queryClient.invalidateQueries({
           queryKey: ["favoriteBookmarks"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["archiveBookmarks"],
+        })
+      }
+    },
+  })
+}
+
+export function useArchiveBookmark() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data) => archiveBookmark(data),
+    onSettled: async (_, error) => {
+      if (error) {
+        console.log(error)
+      } else {
+        await queryClient.invalidateQueries({
+          queryKey: ["myBookmarks"],
         })
         await queryClient.invalidateQueries({
           queryKey: ["archiveBookmarks"],

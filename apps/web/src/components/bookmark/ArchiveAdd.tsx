@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from "@repo/ui/components/tooltip"
 import { Archive, Star } from "lucide-react"
-import { useFavoriteBookmark } from "@/services/mutations"
+import { useArchiveBookmark, useFavoriteBookmark } from "@/services/mutations"
 
 interface ArchiveAddProps {
   archive: boolean
@@ -15,7 +15,7 @@ interface ArchiveAddProps {
 }
 
 const ArchiveAdd: FC<ArchiveAddProps> = ({ archive, bookmarkId }) => {
-  const favoriteQuery = useFavoriteBookmark()
+  const favoriteQuery = useArchiveBookmark()
 
   const payload = {
     bookmarkId: bookmarkId,
@@ -26,7 +26,6 @@ const ArchiveAdd: FC<ArchiveAddProps> = ({ archive, bookmarkId }) => {
     await favoriteQuery.mutateAsync(payload)
   }
 
-  console.log("is archived", archive)
   return (
     <div className=" flex items-center justify-center">
       <TooltipProvider delayDuration={0}>
