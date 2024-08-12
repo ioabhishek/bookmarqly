@@ -56,3 +56,11 @@ export const favoriteBookmark = async (data: any) => {
 export const archiveBookmark = async (data: any) => {
   return await axiosPublic.post(`${BOOKMARK}/archive`, data)
 }
+
+export const articleBookmark = async (data: any) => {
+  return await axiosPublic.get(`${BOOKMARK}/articles?sortby=${data}`)
+}
+
+export const videoBookmark = async (data: any) => {
+  return await axiosPublic.get(`${BOOKMARK}/videos?sortby=${data}`)
+}

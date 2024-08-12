@@ -118,14 +118,6 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
                 <span className=" text-sm">Videos</span>
               </div>
             </Link>
-            <Link
-              href="/bookmarks/tags"
-              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/videos" && "bg-border rounded-md"}`}>
-              <div className=" flex items-center gap-3">
-                <Tag className=" w-5 h-5" />
-                <span className=" text-sm">Tags</span>
-              </div>
-            </Link>
           </div>
         </div>
 

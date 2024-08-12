@@ -94,7 +94,6 @@ export function useDeleteCollection() {
       if (error) {
         console.log(error)
       } else {
-        // toast.success("Collection deleted successfully!")
         await queryClient.invalidateQueries({
           queryKey: ["myCollection"],
         })
@@ -117,6 +116,18 @@ export function useCreateBookmark() {
         await queryClient.invalidateQueries({
           queryKey: ["myBookmarks"],
         })
+        await queryClient.invalidateQueries({
+          queryKey: ["favoriteBookmarks"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["archiveBookmarks"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["videoBookmark"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["articleBookmark"],
+        })
       }
     },
   })
@@ -136,6 +147,18 @@ export function useUpdateBookmark() {
         await queryClient.invalidateQueries({
           queryKey: ["myBookmarks"],
         })
+        await queryClient.invalidateQueries({
+          queryKey: ["favoriteBookmarks"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["archiveBookmarks"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["videoBookmark"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["articleBookmark"],
+        })
       }
     },
   })
@@ -154,6 +177,18 @@ export function useDeleteBookmark() {
         })
         await queryClient.invalidateQueries({
           queryKey: ["myBookmarks"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["favoriteBookmarks"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["archiveBookmarks"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["videoBookmark"],
+        })
+        await queryClient.invalidateQueries({
+          queryKey: ["articleBookmark"],
         })
       }
     },

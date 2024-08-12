@@ -1,10 +1,12 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
+  articleBookmark,
   getArchiveBookmarks,
   getFavoriteBookmarks,
   getMyBookmarks,
   getMyCollections,
   getSingleCollection,
+  videoBookmark,
 } from "./api"
 
 export function useMyCollection(data: any) {
@@ -39,5 +41,19 @@ export function useSingleCollection(collectionId: any) {
   return useQuery({
     queryKey: ["singleCollection"],
     queryFn: () => getSingleCollection(collectionId),
+  })
+}
+
+export function useArticleBookmark(data: any) {
+  return useQuery({
+    queryKey: ["articleBookmark"],
+    queryFn: () => articleBookmark(data),
+  })
+}
+
+export function useVideoBookmark(data: any) {
+  return useQuery({
+    queryKey: ["videoBookmark"],
+    queryFn: () => videoBookmark(data),
   })
 }
