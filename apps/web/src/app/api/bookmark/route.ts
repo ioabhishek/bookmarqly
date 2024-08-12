@@ -37,6 +37,9 @@ export async function GET(req: NextRequest) {
       userId: payload?.id,
       ...(favorites === "true" && { favorite: true }),
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   })
 
   return NextResponse.json(
