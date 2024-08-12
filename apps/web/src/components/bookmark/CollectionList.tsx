@@ -39,7 +39,7 @@ const CollectionList: FC<CreateBookmarkProps> = ({ id, setId }) => {
           aria-expanded={open}
           className="w-full justify-between">
           {id
-            ? collections?.find((collection) => collection.id === id)?.title
+            ? collections?.find((collection) => collection.id === id)?.name
             : "Select collection..."}
           {/* <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
         </Button>
@@ -58,7 +58,7 @@ const CollectionList: FC<CreateBookmarkProps> = ({ id, setId }) => {
                     setId(currentValue === id ? "" : currentValue)
                     setOpen(false)
                   }}>
-                  {collection.title}
+                  {collection.name}
                   {/* <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4",

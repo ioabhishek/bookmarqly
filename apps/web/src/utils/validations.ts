@@ -41,12 +41,9 @@ export const createBookmarkSchema = z.object({
 })
 
 export const updateBookmarkSchema = z.object({
-  title: z.string(),
-  url: z
+  collectionId: z
     .string()
-    .url({ message: "Invalid URL format" })
-    .min(1, { message: "URL is required" }),
-  note: z.string().optional(),
+    .min(1, { message: "Collection ID is either empty or it's not valid." }),
   bookmarkId: z
     .string()
     .min(1, { message: "Bookmark ID is either empty or it's not valid." }),

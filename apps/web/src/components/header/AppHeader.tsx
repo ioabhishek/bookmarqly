@@ -91,7 +91,7 @@ const AppHeader = () => {
                         <DropdownMenuLabel className="flex flex-col items-start">
                           <span>{session?.user?.name}</span>
                           <span className="text-sm text-muted-foreground font-normal">
-                            @ioabhishek
+                            {session?.user?.email}
                           </span>
                         </DropdownMenuLabel>
 
@@ -101,14 +101,14 @@ const AppHeader = () => {
                           <CircleUserRound className="w-4 h-4 text-muted-foreground" />
                           <span>Profile</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="flex items-center gap-2 ">
+                        {/* <DropdownMenuItem className="flex items-center gap-2 ">
                           <Settings className="w-4 h-4 text-muted-foreground" />
                           <span>Customize</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="flex items-center gap-2 ">
+                        </DropdownMenuItem> */}
+                        {/* <DropdownMenuItem className="flex items-center gap-2 ">
                           <Zap className="w-4 h-4 text-muted-foreground" />
                           <span>Upgrade</span>
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                         <DropdownMenuItem
                           onClick={() => signOut({ callbackUrl: "/" })}
                           className="flex items-center gap-2 ">

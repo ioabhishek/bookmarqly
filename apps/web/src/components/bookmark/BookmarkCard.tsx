@@ -37,6 +37,7 @@ import ArchiveAdd from "./ArchiveAdd"
 import FavoriteAdd from "./FavoriteAdd"
 import AddTag from "./AddTag"
 import AddCollection from "./AddCollection"
+import AddToCollection from "./AddToCollection"
 
 const BookmarkCard = ({ data }) => {
   const baseUrl = new URL(data?.url).origin.split("://")[1]
@@ -66,7 +67,7 @@ const BookmarkCard = ({ data }) => {
       </p>
 
       <div className="relative z-30 grid grid-cols-4 gap-4">
-        <AddCollection />
+        <AddToCollection bookmarkId={data?.id} />
         <FavoriteAdd />
         <ArchiveAdd />
         {/* <AddTag /> */}

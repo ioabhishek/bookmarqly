@@ -163,67 +163,59 @@ export async function DELETE(req: NextRequest) {
 }
 
 // Update bookmark
-// export async function PUT(req: Request) {
-//   const session = await auth()
+export async function PUT(req: NextRequest) {
+  const { error, status, payload } = await verifyToken(req)
 
-//   if (!session?.user) {
-//     return NextResponse.json(
-//       {
-//         success: false,
-//         message: "You must be logged in to view bookmarks",
-//       },
-//       { status: 401 }
-//     )
-//   }
+  if (error) {
+    return NextResponse.json({ success: false, message: error })
+  }
 
-//   const jsonRequest = await req.json()
+  const jsonRequest = await req.json()
 
-//   const validationResult = updateBookmarkSchema.safeParse(jsonRequest)
+  const validationResult = updateBookmarkSchema.safeParse(jsonRequest)
 
-//   if (!validationResult.success) {
-//     const errors = validationResult.error.errors.map((err) => ({
-//       path: err.path.join("."),
-//       message: err.message,
-//     }))
+  if (!validationResult.success) {
+    const errors = validationResult.error.errors.map((err) => ({
+      path: err.path.join("."),
+      message: err.message,
+    }))
 
-//     return NextResponse.json(
-//       { success: false, message: "Validation error", errors: errors },
-//       { status: 400 }
-//     )
-//   }
+    return NextResponse.json(
+      { success: false, message: "Validation error", errors: errors },
+      { status: 400 }
+    )
+  }
 
-//   const { title, url, note, bookmarkId } = validationResult.data
+  const { collectionId, bookmarkId } = validationResult.data
 
-//   const bookmark = await db.bookmark.findUnique({
-//     where: {
-//       id: bookmarkId,
-//     },
-//   })
+  const bookmark = await db.bookmark.findUnique({
+    where: {
+      id: bookmarkId,
+    },
+  })
 
-//   if (!bookmark) {
-//     return NextResponse.json(
-//       { success: false, message: "No bookmark found" },
-//       { status: 404 }
-//     )
-//   }
+  if (!bookmark) {
+    return NextResponse.json(
+      { success: false, message: "No bookmark found" },
+      { status: 404 }
+    )
+  }
 
-//   const updatedBookmark = await db.bookmark.update({
-//     where: {
-//       id: bookmarkId,
-//     },
-//     data: {
-//       title: title,
-//       url: url,
-//       note: note,
-//     },
-//   })
+  const updatedBookmark = await db.bookmark.update({
+    where: {
+      id: bookmarkId,
+    },
+    data: {
+      collectionId,
+    },
+  })
 
-//   return NextResponse.json(
-//     {
-//       success: true,
-//       data: updatedBookmark,
-//       message: "Bookmark updated successfully",
-//     },
-//     { status: 200 }
-//   )
-// }
+  return NextResponse.json(
+    {
+      success: true,
+      data: updatedBookmark,
+      message: "Added to collection successfully",
+    },
+    { status: 200 }
+  )
+}

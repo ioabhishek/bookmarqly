@@ -135,7 +135,7 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
             {collections?.slice(0, 5).map((collection: any) => (
               <Link
                 key={collection?.id}
-                href={`/c/${collection?.id}`}
+                href={`/collections/${collection?.id}`}
                 className="flex items-center justify-between px-3">
                 <div className=" text-sm flex items-center gap-3 text-muted-foreground">
                   {collection?.name}
