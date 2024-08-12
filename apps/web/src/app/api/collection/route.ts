@@ -16,6 +16,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ success: false, message: error })
   }
 
+  const url = new URL(req.url)
+  const sortby = url.searchParams.get("sortby")
+
   const collection = await db.collection.findMany({
     where: {
       userId: payload?.id,
@@ -31,7 +34,7 @@ export async function GET(req: NextRequest) {
       },
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: sortby === "asc" ? "asc" : "desc",
     },
   })
 

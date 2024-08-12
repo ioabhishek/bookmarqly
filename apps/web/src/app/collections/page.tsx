@@ -10,6 +10,7 @@ import {
 } from "@repo/ui/components/dropdown-menu"
 import { useMyBookmarks, useMyCollection } from "@/services/queries"
 import {
+  ArrowDownNarrowWide,
   ArrowDownWideNarrow,
   ArrowUpNarrowWide,
   ArrowUpWideNarrow,
@@ -27,9 +28,15 @@ interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
   const [layoutType, setLayoutType] = useState("grid")
+  const [sortBy, setSortBy] = useState("desc")
 
-  const collectionsQuery = useMyCollection()
+  const collectionsQuery = useMyCollection(sortBy)
   const collections = collectionsQuery?.data?.data?.data
+
+  const handleSort = async (sort: string) => {
+    await setSortBy(sort)
+    collectionsQuery.refetch()
+  }
 
   return (
     <div className="w-full h-[calc(100%-64px)] flex flex-col">
@@ -42,17 +49,25 @@ const page: FC<pageProps> = ({}) => {
             <CreateCollection titleText="Create collection" />
             <div className="ml-6">
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center justify-center">
-                  <ArrowUpNarrowWide className="w-6 h-6" />
+                <DropdownMenuTrigger className="flex items-center justify-center outline-none">
+                  {sortBy === "desc" ? (
+                    <ArrowUpWideNarrow className="w-6 h-6" />
+                  ) : (
+                    <ArrowDownNarrowWide className="w-6 h-6" />
+                  )}
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem className="flex items-center gap-1">
-                    <ArrowDownWideNarrow className="w-5 h-5" />
+                  <DropdownMenuItem
+                    className="flex items-center gap-1"
+                    onClick={() => handleSort("asc")}>
+                    <ArrowDownNarrowWide className="w-5 h-5" />
                     Oldest first
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-1">
-                    <ArrowUpNarrowWide className="w-5 h-5" />
+                  <DropdownMenuItem
+                    className="flex items-center gap-1"
+                    onClick={() => handleSort("desc")}>
+                    <ArrowUpWideNarrow className="w-5 h-5" />
                     Newest first
                   </DropdownMenuItem>
                 </DropdownMenuContent>

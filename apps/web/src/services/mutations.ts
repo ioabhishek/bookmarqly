@@ -5,72 +5,11 @@ import {
   deleteBookmark,
   deleteCollection,
   favoriteBookmark,
-  forgotPassword,
-  login,
-  logout,
-  register,
   updateBookmark,
   updateCollection,
   updateCollectionPrivacy,
 } from "./api"
 // import { toast } from "sonner"
-
-export function useRegister() {
-  return useMutation({
-    mutationFn: (data) => register(data),
-    onMutate: () => {},
-    onError: () => {},
-    onSettled: async (_, error) => {
-      if (error) {
-        console.log(error)
-      }
-    },
-  })
-}
-
-export function useLogin() {
-  return useMutation({
-    mutationFn: (data) => login(data),
-    onMutate: () => {},
-    onError: () => {},
-    onSettled: async (data, error) => {
-      if (data?.data?.success) {
-        localStorage.setItem("accessToken", data?.data?.data?.accessToken)
-        localStorage.setItem("refreshToken", data?.data?.data?.refreshToken)
-        localStorage.setItem("user", data?.data?.data?.user?.username)
-      }
-      // if (error) {
-      //   toast.error(error?.response?.data?.message)
-      // }
-    },
-  })
-}
-
-export function useLogout() {
-  return useMutation({
-    mutationFn: () => logout(),
-    onMutate: () => {},
-    onError: () => {},
-    onSettled: async (_, error) => {
-      if (error) {
-        console.log(error)
-      }
-    },
-  })
-}
-
-export function useForgotPassword() {
-  return useMutation({
-    mutationFn: (data) => forgotPassword(data),
-    onMutate: () => {},
-    onError: () => {},
-    onSettled: async (_, error) => {
-      // if (error) {
-      //   // console.log(error)
-      // }
-    },
-  })
-}
 
 export function useCreateCollection() {
   const queryClient = useQueryClient()

@@ -1,78 +1,20 @@
 import axiosPublic from "@/hooks/useAxios"
-import {
-  BOOKMARK,
-  COLLECTION,
-  COLLECTION_PRIVACY,
-  CREATE_BOOKMARK,
-  CREATE_COLLECTION,
-  CURRENT_USER,
-  DELETE_BOOKMARK,
-  DELETE_COLLECTION,
-  FORGOT_PASSWORD,
-  GET_USER,
-  LOGIN,
-  LOGOUT,
-  MY_BOOKMARKS,
-  MY_COLLECTION,
-  REFRESH_TOKEN,
-  REGISTER,
-  SINGLE_COLLECTION,
-  UPDATE_BOOKMARK,
-  UPDATE_COLLECTION,
-  USER,
-  USER_DETAILS,
-  USERNAME,
-} from "@/utils/Endpoints"
+import { BOOKMARK, COLLECTION } from "@/utils/Endpoints"
 
-// Hono apis
-export const checkUsername = async (data: any) => {
-  return await axiosPublic.get(`${USERNAME}?u=${data}`)
+export const getMyCollections = async (data: any) => {
+  return await axiosPublic.get(`${COLLECTION}?sortby=${data}`)
 }
 
-// Hono apis
-
-export const register = async (data: any) => {
-  return await axiosPublic.post(REGISTER, data)
+export const getMyBookmarks = async (data: any) => {
+  return await axiosPublic.get(`${BOOKMARK}?sortby=${data}`)
 }
 
-export const login = async (data: any) => {
-  return await axiosPublic.post(LOGIN, data)
+export const getFavoriteBookmarks = async (data: any) => {
+  return await axiosPublic.get(`${BOOKMARK}?favorites=true?&sortby=${data}`)
 }
 
-export const logout = async () => {
-  return await axiosPublic.post(LOGOUT)
-}
-
-export const forgotPassword = async (data: any) => {
-  return await axiosPublic.post(FORGOT_PASSWORD, data)
-}
-
-export const getCurrentUser = async (data: any) => {
-  return await axiosPublic.post(CURRENT_USER, data)
-}
-
-export const getUser = async (data: any) => {
-  return await axiosPublic.get(`${USERNAME}/${data}`)
-}
-
-export const userDetails = async () => {
-  return await axiosPublic.get(`${USER_DETAILS}`)
-}
-
-export const getMyCollections = async () => {
-  return await axiosPublic.get(`${COLLECTION}`)
-}
-
-export const getMyBookmarks = async () => {
-  return await axiosPublic.get(`${BOOKMARK}`)
-}
-
-export const getFavoriteBookmarks = async () => {
-  return await axiosPublic.get(`${BOOKMARK}?favorites=true`)
-}
-
-export const getArchiveBookmarks = async () => {
-  return await axiosPublic.get(`${BOOKMARK}?archive=true`)
+export const getArchiveBookmarks = async (data: any) => {
+  return await axiosPublic.get(`${BOOKMARK}?archive=true?&sortby=${data}`)
 }
 
 export const createCollection = async (data: any) => {
