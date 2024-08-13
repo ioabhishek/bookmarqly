@@ -33,6 +33,10 @@ export async function GET(req: NextRequest) {
   const favorites = url.searchParams.get("favorites")
   const archive = url.searchParams.get("archive")
   const sortby = url.searchParams.get("sortby")
+  const page = parseInt(url.searchParams.get("page") ?? "1", 10)
+  const limit = parseInt(url.searchParams.get("limit") ?? "12", 10)
+
+  const skip = (page - 1) * limit
 
   if (favorites === "true") {
     const bookmarks = await db.bookmark.findMany({
@@ -43,6 +47,8 @@ export async function GET(req: NextRequest) {
       orderBy: {
         createdAt: sortby === "asc" ? "asc" : "desc",
       },
+      skip,
+      take: limit,
     })
 
     return NextResponse.json(
@@ -63,6 +69,8 @@ export async function GET(req: NextRequest) {
     orderBy: {
       createdAt: sortby === "asc" ? "asc" : "desc",
     },
+    skip,
+    take: limit,
   })
 
   return NextResponse.json(

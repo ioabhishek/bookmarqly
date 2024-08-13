@@ -20,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const accessToken = await generateJWT({
         id: user?.id,
       })
-      cookies().set("accessToken", accessToken)
+      cookies().set("accessToken", accessToken, { maxAge: 365 * 24 * 60 * 60 })
       return true
     },
     async session({ session, token }) {
