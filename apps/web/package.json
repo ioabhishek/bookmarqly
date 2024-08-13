@@ -13,11 +13,13 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.1",
+    "@auth/upstash-redis-adapter": "^2.4.2",
     "@prisma/client": "^5.18.0",
     "@repo/ui": "workspace:*",
     "@tanstack/react-query": "^5.51.15",
     "@tanstack/react-query-devtools": "^5.51.15",
     "@uploadthing/react": "^6.7.2",
+    "@upstash/redis": "^1.34.0",
     "axios": "^1.7.2",
     "cheerio": "^1.0.0",
     "date-fns": "^3.6.0",

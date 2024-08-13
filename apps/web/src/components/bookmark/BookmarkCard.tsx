@@ -40,7 +40,9 @@ import AddCollection from "./AddCollection"
 import AddToCollection from "./AddToCollection"
 
 const BookmarkCard = ({ data }) => {
-  const baseUrl = new URL(data?.url).origin.split("://")[1]
+  const baseUrl = new URL(data?.url).origin
+    .split("://")[1]
+    .replace(/^www\./, "")
 
   return (
     <Card className=" p-3 relative hover:shadow-lg hover:bg-">
