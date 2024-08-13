@@ -18,7 +18,7 @@ export function useMyCollection(data: any) {
 
 export function useMyBookmarks(data: any) {
   return useQuery({
-    queryKey: ["myBookmarks"],
+    queryKey: ["myBookmarksOld"],
     queryFn: () => getMyBookmarks(data),
   })
 }

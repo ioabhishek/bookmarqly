@@ -19,19 +19,71 @@ import {
   ListFilter,
   Plus,
 } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Separator } from "@repo/ui/components/separator"
+import { useInfiniteQuery } from "@tanstack/react-query"
+import axiosPublic from "@/hooks/useAxios"
+import { BASE_URL, BOOKMARK, PAGE_LIMIT } from "@/utils/Endpoints"
+import BookmarkList from "@/components/bookmark/BookmarkList"
 
 const page = () => {
   const [layoutType, setLayoutType] = useState("grid")
   const [sortBy, setSortBy] = useState("desc")
+  const bottomBoundaryRef = useRef(null)
 
-  const myBookmarksQuery = useMyBookmarks(sortBy)
-  const myBookmarks = myBookmarksQuery?.data?.data?.data
+  // const myBookmarksQuery = useMyBookmarks(sortBy)
+  // const myBookmarks = myBookmarksQuery?.data?.data?.data
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+    error,
+    refetch,
+    isLoading,
+  } = useInfiniteQuery({
+    queryKey: ["myBookmarks"],
+    queryFn: async ({ pageParam }) => {
+      const response = await axiosPublic.get(
+        `${BOOKMARK}?sortby=${sortBy}&page=${pageParam}&limit=${PAGE_LIMIT}`
+      )
+      return response?.data?.data
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage?.length === 0) return
+      return allPages?.length + 1
+    },
+  })
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage()
+        }
+      },
+      {
+        threshold: 0.3,
+      }
+    )
+
+    if (bottomBoundaryRef.current) {
+      observer.observe(bottomBoundaryRef.current)
+    }
+
+    return () => {
+      if (bottomBoundaryRef.current) {
+        observer.unobserve(bottomBoundaryRef.current)
+      }
+    }
+  }, [bottomBoundaryRef, fetchNextPage, hasNextPage, isFetchingNextPage])
 
   const handleSort = async (sort: string) => {
     await setSortBy(sort)
-    myBookmarksQuery.refetch()
+    refetch()
   }
 
   return (
@@ -73,9 +125,11 @@ const page = () => {
         {/* Bookmark list */}
         <div
           className={`${layoutType} grid-cols-1 md:grid-cols-4 flex-col gap-3 md:gap-5 pt-0`}>
-          {myBookmarks?.map((bookmark, index) => (
-            <BookmarkCard key={index} data={bookmark} />
-          ))}
+          {data &&
+            data?.pages?.map((page, index) => (
+              <BookmarkList bookmarks={page} key={index} />
+            ))}
+          <div ref={bottomBoundaryRef}></div>
         </div>
       </div>
     </div>
