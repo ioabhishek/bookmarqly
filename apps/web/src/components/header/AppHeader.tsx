@@ -30,6 +30,7 @@ import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import HeaderSearch from "./HeaderSearch"
 import { Icons } from "../asset/Icons"
+import Cookies from "js-cookie"
 
 const AppHeader = () => {
   const { data: session } = useSession()
@@ -43,6 +44,11 @@ const AppHeader = () => {
     } else {
       setTheme("dark")
     }
+  }
+
+  const handleLogout = () => {
+    Cookies.remove("accessToken")
+    signOut({ callbackUrl: "/" })
   }
 
   return (
@@ -110,7 +116,7 @@ const AppHeader = () => {
                           <span>Upgrade</span>
                         </DropdownMenuItem> */}
                         <DropdownMenuItem
-                          onClick={() => signOut({ callbackUrl: "/" })}
+                          onClick={handleLogout}
                           className="flex items-center gap-2 ">
                           <LogOut className="w-4 h-4 text-muted-foreground" />
                           <span>Logout</span>

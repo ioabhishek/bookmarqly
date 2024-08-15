@@ -13,7 +13,10 @@ export async function POST(req: NextRequest) {
   const { bookmarkId, archive } = await req.json()
 
   const response = await db.bookmark.update({
-    where: { id: bookmarkId },
+    where: {
+      userId: payload?.id,
+      id: bookmarkId,
+    },
     data: {
       archive,
     },

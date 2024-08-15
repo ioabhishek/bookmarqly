@@ -7,9 +7,12 @@ import {
   ArrowRight,
   Bookmark,
   Download,
+  Facebook,
   Globe,
   Highlighter,
   Home,
+  Instagram,
+  Linkedin,
   Moon,
   Newspaper,
   PanelLeft,
@@ -18,6 +21,7 @@ import {
   Sun,
   Tag,
   Tags,
+  Twitter,
   Youtube,
 } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -111,13 +115,53 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
               </div>
             </Link>
             <Link
-              href="/bookmarks/videos"
+              href="/bookmarks/youtube"
               className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/videos" && "bg-border rounded-md"}`}>
               <div className=" flex items-center gap-3">
                 <Youtube className=" w-5 h-5" />
-                <span className=" text-sm">Videos</span>
+                <span className=" text-sm">Youtube</span>
               </div>
             </Link>
+            {/* <Link
+              href="/bookmarks/facebook"
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
+              <div className=" flex items-center gap-3">
+                <Twitter className=" w-5 h-5" />
+                <span className=" text-sm">Twitter</span>
+              </div>
+            </Link>
+            <Link
+              href="/bookmarks/linkedin"
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
+              <div className=" flex items-center gap-3">
+                <Linkedin className=" w-5 h-5" />
+                <span className=" text-sm">Linkedin</span>
+              </div>
+            </Link>
+            <Link
+              href="/bookmarks/reddit"
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
+              <div className=" flex items-center gap-3">
+                <Linkedin className=" w-5 h-5" />
+                <span className=" text-sm">Reddit</span>
+              </div>
+            </Link>
+            <Link
+              href="/bookmarks/facebook"
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
+              <div className=" flex items-center gap-3">
+                <Facebook className=" w-5 h-5" />
+                <span className=" text-sm">Facebook</span>
+              </div>
+            </Link>
+            <Link
+              href="/bookmarks/instagram"
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
+              <div className=" flex items-center gap-3">
+                <Instagram className=" w-5 h-5" />
+                <span className=" text-sm">Instagram</span>
+              </div>
+            </Link> */}
           </div>
         </div>
 
@@ -127,14 +171,14 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
         <div>
           <div className=" flex justify-between items-center mb-4">
             <h2 className=" text-sm md:text-base font-normal text-muted-foreground pl-3">
-              My Collections
+              Create Collections
             </h2>
             <CreateCollection />
           </div>
 
           {/* collection list */}
           <div className=" flex flex-col gap-3 mb-4">
-            {collections?.slice(0, 5).map((collection: any) => (
+            {collections?.slice(0, 10).map((collection: any) => (
               <Link
                 key={collection?.id}
                 href={`/collections/${collection?.id}`}

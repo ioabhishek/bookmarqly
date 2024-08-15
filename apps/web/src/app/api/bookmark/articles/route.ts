@@ -14,6 +14,7 @@ export async function GET(req: NextRequest) {
 
   const response = await db.bookmark.findMany({
     where: {
+      userId: payload?.id,
       url: {
         not: {
           contains: "youtube.com",

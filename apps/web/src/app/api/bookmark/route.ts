@@ -1,5 +1,5 @@
-import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { redis } from "@/lib/redis"
 import { verifyToken } from "@/utils/jwtVerification"
 import { createBookmarkSchema, updateBookmarkSchema } from "@/utils/validations"
 import { NextRequest, NextResponse } from "next/server"
@@ -37,6 +37,40 @@ export async function GET(req: NextRequest) {
   const limit = parseInt(url.searchParams.get("limit") ?? "12", 10)
 
   const skip = (page - 1) * limit
+
+  // const bookmarkItems = await redis.lrange("user:bookmarks", 0, 3)
+
+  // const bookmarkKeys = await redis.keys(`user:bookmarks:${payload?.id}:*`)
+
+  // const bookmarksList = await Promise.all(
+  //   bookmarkKeys.map((key) => redis.json.get(key))
+  // )
+
+  // if (bookmarksList) {
+  //   const filteredBookmarks = bookmarksList
+  //     .filter((bookmark) => {
+  //       if (favorites && !bookmark.favorites) return false
+  //       if (archive !== undefined && !bookmark?.archive !== archive)
+  //         return false
+  //       return true
+  //     })
+  //     .sort((a, b) => {
+  //       const dateA = new Date(a?.createdAt)
+  //       const dateB = new Date(b?.createdAt)
+  //       return sortby === "asc" ? dateA - dateB : dateB - dateA
+  //     })
+
+  //   const paginatedBookmarks = filteredBookmarks.slice(skip, skip + limit)
+
+  //   return NextResponse.json(
+  //     {
+  //       success: true,
+  //       data: bookmarksList,
+  //       message: "Bookmarks fetched successfully",
+  //     },
+  //     { status: 200 }
+  //   )
+  // }
 
   if (favorites === "true") {
     const bookmarks = await db.bookmark.findMany({
@@ -107,7 +141,7 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { url, collectionId } = validationResult.data
+  const { url } = validationResult.data
 
   let ogData
   await (async () => {
@@ -127,13 +161,21 @@ export async function POST(req: NextRequest) {
     ogDescription: ogData?.ogDescription,
   }
 
-  if (collectionId) {
-    bookmarkPayload.collectionId = collectionId
-  }
-
   const bookmark = await db.bookmark.create({
     data: bookmarkPayload,
   })
+
+  // try {
+  //   await Promise.all([
+  //     redis.json.set(
+  //       `user:bookmarks:${bookmark?.userId}:${bookmark?.id}`,
+  //       "$",
+  //       bookmark
+  //     ),
+  //   ])
+  // } catch (error) {
+  //   console.log("Failed to create bookmark in redis")
+  // }
 
   return NextResponse.json(
     {
@@ -245,6 +287,16 @@ export async function PUT(req: NextRequest) {
       collectionId,
     },
   })
+
+  // try {
+  //   await redis.json.set(
+  //     `user:bookmarks:${updatedBookmark?.userId}:${updatedBookmark?.id}`,
+  //     "$.collectionId",
+  //     JSON.stringify(collectionId)
+  //   )
+  // } catch (error) {
+  //   console.log("Failed to update in redis")
+  // }
 
   return NextResponse.json(
     {
