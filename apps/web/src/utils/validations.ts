@@ -37,6 +37,7 @@ export const createBookmarkSchema = z.object({
     .string()
     .url({ message: "Invalid URL format" })
     .min(1, { message: "URL is required" }),
+  note: z.string().optional(),
   collectionId: z.string().optional(),
 })
 

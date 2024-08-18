@@ -75,6 +75,7 @@ model Collection {
 model Bookmark {
   id            String        @id @default(cuid())
   url           String
+  note          String?
   ogImage       String?
   ogTitle       String?
   ogDescription String?

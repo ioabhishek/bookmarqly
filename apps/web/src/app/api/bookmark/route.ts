@@ -5,6 +5,16 @@ import { createBookmarkSchema, updateBookmarkSchema } from "@/utils/validations"
 import { NextRequest, NextResponse } from "next/server"
 const og = require("open-graph")
 
+interface BookmarkPayload {
+  url: string
+  userId: string
+  ogImage: string
+  ogTitle: string
+  ogDescription: string
+  note?: string
+  collectionId?: string
+}
+
 async function fetchOpenGraphData(url: any) {
   return new Promise((resolve, reject) => {
     og(url, (err: any, meta: any) => {
@@ -141,7 +151,7 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { url } = validationResult.data
+  const { url, note, collectionId } = validationResult.data
 
   let ogData
   await (async () => {
@@ -153,12 +163,20 @@ export async function POST(req: NextRequest) {
     }
   })()
 
-  let bookmarkPayload = {
+  let bookmarkPayload: BookmarkPayload = {
     url: url,
-    userId: payload?.id,
-    ogImage: ogData?.ogImage?.url,
-    ogTitle: ogData?.ogTitle,
-    ogDescription: ogData?.ogDescription,
+    userId: payload?.id ?? "",
+    ogImage: ogData?.ogImage?.url ?? "",
+    ogTitle: ogData?.ogTitle ?? "",
+    ogDescription: ogData?.ogDescription ?? "",
+  }
+
+  if (note) {
+    bookmarkPayload.note = note
+  }
+
+  if (collectionId) {
+    bookmarkPayload.collectionId = collectionId
   }
 
   const bookmark = await db.bookmark.create({

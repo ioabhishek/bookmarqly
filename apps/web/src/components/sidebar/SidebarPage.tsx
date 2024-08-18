@@ -106,22 +106,46 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
                 <span className=" text-sm">Favorites</span>
               </div>
             </Link>
-            <Link
+            {/* <Link
               href="/bookmarks/articles"
               className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/articles" && "bg-border rounded-md"}`}>
               <div className=" flex items-center gap-3">
                 <Newspaper className=" w-5 h-5" />
                 <span className=" text-sm">Articles</span>
               </div>
-            </Link>
+            </Link> */}
             <Link
               href="/bookmarks/youtube"
-              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/videos" && "bg-border rounded-md"}`}>
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/youtube" && "bg-border rounded-md"}`}>
               <div className=" flex items-center gap-3">
                 <Youtube className=" w-5 h-5" />
                 <span className=" text-sm">Youtube</span>
               </div>
             </Link>
+            <Link
+              href="/bookmarks/twitter"
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/twitter" && "bg-border rounded-md"}`}>
+              <div className=" flex items-center gap-3">
+                <Twitter className=" w-5 h-5" />
+                <span className=" text-sm">Twitter</span>
+              </div>
+            </Link>
+            <Link
+              href="/bookmarks/linkedin"
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/linkedin" && "bg-border rounded-md"}`}>
+              <div className=" flex items-center gap-3">
+                <Linkedin className=" w-5 h-5" />
+                <span className=" text-sm">LinkedIn</span>
+              </div>
+            </Link>
+            {/* <Link
+              href="/bookmarks/reddit"
+              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
+              <div className=" flex items-center gap-3">
+                <Icons.reddit className=" w-5 h-5" />
+                <span className=" text-sm">Reddit</span>
+              </div>
+            </Link> */}
             {/* <Link
               href="/bookmarks/facebook"
               className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
@@ -130,22 +154,7 @@ const SidebarPage: FC<SidebarProps> = ({ session }) => {
                 <span className=" text-sm">Twitter</span>
               </div>
             </Link>
-            <Link
-              href="/bookmarks/linkedin"
-              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
-              <div className=" flex items-center gap-3">
-                <Linkedin className=" w-5 h-5" />
-                <span className=" text-sm">Linkedin</span>
-              </div>
-            </Link>
-            <Link
-              href="/bookmarks/reddit"
-              className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
-              <div className=" flex items-center gap-3">
-                <Linkedin className=" w-5 h-5" />
-                <span className=" text-sm">Reddit</span>
-              </div>
-            </Link>
+            
             <Link
               href="/bookmarks/facebook"
               className={`flex items-center justify-between px-3 py-2.5 ${pathname === "/bookmarks/facebook" && "bg-border rounded-md"}`}>
