@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bbackground: 224 71.4% 4.1%;
+    --bforeground: 210 20% 98%;
+    --bcard: 224 71.4% 4.1%;
+    --bcard-foreground: 210 20% 98%;
+    --bpopover: 224 71.4% 4.1%;
+    --bpopover-foreground: 210 20% 98%;
+    --bprimary: 263.4 70% 50.4%;
+    --bprimary-foreground: 210 20% 98%;
+    --bsecondary: 215 27.9% 16.9%;
+    --bsecondary-foreground: 210 20% 98%;
+    --bmuted: 215 27.9% 16.9%;
+    --bmuted-foreground: 217.9 10.6% 64.9%;
+    --baccent: 215 27.9% 16.9%;
+    --baccent-foreground: 210 20% 98%;
+    --bdestructive: 0 62.8% 30.6%;
+    --bdestructive-foreground: 210 20% 98%;
+    --bradius: 1rem;
+    --bborder: 215 27.9% 16.9%;
+    --binput: 215 27.9% 16.9%;
+    --bring: 263.4 70% 50.4%;
+    --bchart-1: 220 70% 50%;
+    --bchart-2: 160 60% 45%;
+    --bchart-3: 30 80% 55%;
+    --bchart-4: 280 65% 60%;
+    --bchart-5: 340 75% 55%;
+  }
+
+  :host {
+    --bbackground: 224 71.4% 4.1%;
+    --bforeground: 210 20% 98%;
+    --bcard: 224 71.4% 4.1%;
+    --bcard-foreground: 210 20% 98%;
+    --bpopover: 224 71.4% 4.1%;
+    --bpopover-foreground: 210 20% 98%;
+    --bprimary: 263.4 70% 50.4%;
+    --bprimary-foreground: 210 20% 98%;
+    --bsecondary: 215 27.9% 16.9%;
+    --bsecondary-foreground: 210 20% 98%;
+    --bmuted: 215 27.9% 16.9%;
+    --bmuted-foreground: 217.9 10.6% 64.9%;
+    --baccent: 215 27.9% 16.9%;
+    --baccent-foreground: 210 20% 98%;
+    --bdestructive: 0 62.8% 30.6%;
+    --bdestructive-foreground: 210 20% 98%;
+    --bradius: 1rem;
+    --bborder: 215 27.9% 16.9%;
+    --binput: 215 27.9% 16.9%;
+    --bring: 263.4 70% 50.4%;
+    --bchart-1: 220 70% 50%;
+    --bchart-2: 160 60% 45%;
+    --bchart-3: 30 80% 55%;
+    --bchart-4: 280 65% 60%;
+    --bchart-5: 340 75% 55%;
+  }
+}
+
+/* @layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
+
+#bookmarqly-extension-host {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 99999;
+}
+
+.testing {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#custom-div {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  background: #00000010;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  padding: 0 12px 0;
+  border-radius: 100px;
+  border: 1px solid #8d8d8d;
+}

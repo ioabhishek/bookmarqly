@@ -1,5 +1,4 @@
 import { db } from "@/lib/db"
-import { redis } from "@/lib/redis"
 import { verifyToken } from "@/utils/jwtVerification"
 import { createBookmarkSchema, updateBookmarkSchema } from "@/utils/validations"
 import { NextRequest, NextResponse } from "next/server"
