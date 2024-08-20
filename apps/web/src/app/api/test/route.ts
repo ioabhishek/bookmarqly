@@ -6,7 +6,14 @@ export async function POST(req: NextRequest) {
   const { url } = await req.json()
 
   try {
-    const { data: html } = await axios.get(url)
+    const { data: html } = await axios.get(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+    })
+
+    return NextResponse.json(html)
 
     // Load the HTML into cheerio
     const $ = cheerio.load(html)
