@@ -2,7 +2,6 @@ import { db } from "@/lib/db"
 import { verifyToken } from "@/utils/jwtVerification"
 import { createBookmarkSchema, updateBookmarkSchema } from "@/utils/validations"
 import { NextRequest, NextResponse } from "next/server"
-const og = require("open-graph")
 import * as cheerio from "cheerio"
 import axios from "axios"
 
@@ -14,22 +13,6 @@ interface BookmarkPayload {
   ogDescription: string
   note?: string
   collectionId?: string
-}
-
-async function fetchOpenGraphData(url: any) {
-  return new Promise((resolve, reject) => {
-    og(url, (err: any, meta: any) => {
-      if (err) {
-        console.error("Error fetching Open Graph data:", err)
-        return reject(err)
-      }
-      const ogImage = meta.image
-      const ogTitle = meta.title
-      const ogDescription = meta.description
-
-      resolve({ ogImage, ogTitle, ogDescription })
-    })
-  })
 }
 
 // Get all bookmarks
@@ -154,36 +137,21 @@ export async function POST(req: NextRequest) {
 
   const { url, note, collectionId } = validationResult.data
 
-  // const { data: html } = await axios.get(url, {
-  //   headers: {
-  //     "User-Agent":
-  //       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-  //   },
-  // })
+  const { data: html } = await axios.get(url, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    },
+  })
 
-  // Load the HTML into cheerio
-  // const $ = cheerio.load(html)
-
-  let ogData
-  await (async () => {
-    try {
-      const data = await fetchOpenGraphData(url)
-      ogData = data
-    } catch (error) {
-      console.error("Error:", error)
-    }
-  })()
+  const $ = cheerio.load(html)
 
   let bookmarkPayload: BookmarkPayload = {
     url: url,
     userId: payload?.id ?? "",
-    // ogTitle: $('meta[property="og:title"]').attr("content") ?? "",
-    // ogDescription: $('meta[property="og:description"]').attr("content") ?? "",
-    // ogImage: $('meta[property="og:image"]').attr("content") ?? "",
-
-    ogImage: ogData?.ogImage?.url ?? "",
-    ogTitle: ogData?.ogTitle ?? "",
-    ogDescription: ogData?.ogDescription ?? "",
+    ogTitle: $('meta[property="og:title"]').attr("content") ?? "",
+    ogDescription: $('meta[property="og:description"]').attr("content") ?? "",
+    ogImage: $('meta[property="og:image"]').attr("content") ?? "",
   }
 
   if (note) {
